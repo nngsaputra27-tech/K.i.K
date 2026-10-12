@@ -57,7 +57,7 @@
                         <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </span>
-                        <input type="text" id="inputKelas" placeholder="Contoh: XI AKL 1 atau XII TKJ 2" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all font-medium">
+                        <input type="text" id="inputKelas" placeholder="Kelas XI / XII AKL" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all font-medium">
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                         <!-- Pilihan 1: Kelas XI -->
                         <div id="cardCompany1" onclick="selectCompany('PT KREATIF FURNITUR', 'XI')" class="cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 1</span>
+                                <span id="badgeCompany1" class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full transition-all">Unit Usaha 1</span>
                                 <i id="checkIcon1" class="fa-solid fa-circle-check text-blue-600 text-lg"></i>
                             </div>
                             <div>
@@ -79,7 +79,7 @@
                         <!-- Pilihan 2: Kelas XII -->
                         <div id="cardCompany2" onclick="selectCompany('CV ELEKTRONIK INOVASI', 'XII')" class="cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-slate-300 shadow-sm">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 2</span>
+                                <span id="badgeCompany2" class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full transition-all">Unit Usaha 2</span>
                                 <i id="checkIcon2" class="fa-regular fa-circle text-slate-300 text-lg"></i>
                             </div>
                             <div>
@@ -107,7 +107,7 @@
                     <div class="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-600/20">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083.016.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083.000 6.665 5.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083 0 005.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
                         </svg>
                     </div>
                     <div>
@@ -473,7 +473,6 @@
 
     <!-- SCRIPT UTAMA APLIKASI -->
     <script>
-        // Default Mock Data Berdasarkan Perusahaan
         const defaultStokData = {
             "PT KREATIF FURNITUR": [
                 { nama: "Meja Kayu Minimalis", kategori: "Furniture", bahan: 120000, overhead: 30000, hpp: 150000, margin: 33.33, hargaJual: 200000, stok: 15 },
@@ -564,20 +563,30 @@
             const card2 = document.getElementById('cardCompany2');
             const icon1 = document.getElementById('checkIcon1');
             const icon2 = document.getElementById('checkIcon2');
+            const badge1 = document.getElementById('badgeCompany1');
+            const badge2 = document.getElementById('badgeCompany2');
 
-            if (!card1 || !card2 || !icon1 || !icon2) return;
+            if (!card1 || !card2 || !icon1 || !icon2 || !badge1 || !badge2) return;
 
             if (type === '1' || type === 'XI' || companyName === 'PT KREATIF FURNITUR') {
+                // Unit Usaha 1 Active
                 card1.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                badge1.className = "bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
                 icon1.className = "fa-solid fa-circle-check text-blue-600 text-lg";
                 
+                // Unit Usaha 2 Inactive
                 card2.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                badge2.className = "bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
                 icon2.className = "fa-regular fa-circle text-slate-300 text-lg";
             } else {
+                // Unit Usaha 2 Active
                 card2.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                badge2.className = "bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
                 icon2.className = "fa-solid fa-circle-check text-blue-600 text-lg";
                 
+                // Unit Usaha 1 Inactive
                 card1.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                badge1.className = "bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
                 icon1.className = "fa-regular fa-circle text-slate-300 text-lg";
             }
         }
@@ -656,7 +665,6 @@
             }
         }
 
-        // --- MANAJEMEN STOK & HPP ---
         function renderStokTable() {
             const tbody = document.getElementById('tabelStokBody');
             if (!tbody) return;
@@ -782,7 +790,6 @@
             }
         }
 
-        // --- KASIR & PENJUALAN (POS) ---
         function renderKatalogKasir() {
             const grid = document.getElementById('katalogKasirGrid');
             if (!grid) return;
@@ -1054,7 +1061,6 @@
             }
         }
 
-        // --- LAPORAN & STATISTIK ---
         function updateLaporanStatistik() {
             const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
@@ -1124,7 +1130,6 @@
             }
         }
 
-        // --- EXPORT & IMPORT EXCEL (.xlsx) ---
         function exportExcelStok() {
             const wb = XLSX.utils.book_new();
 
@@ -1203,7 +1208,6 @@
             reader.readAsArrayBuffer(file);
         }
 
-        // Helper escape HTML to prevent XSS or rendering issues
         function escapeHtml(text) {
             if (!text) return "";
             return text.toString()
