@@ -132,16 +132,24 @@
 
         <!-- SUB HEADER NAVIGATION TABS -->
         <div class="bg-white border-b border-slate-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-2 overflow-x-auto py-2">
-                <button onclick="switchTab('stok')" id="tabBtnStok" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap">
-                    <i class="fa-solid fa-boxes-stacked"></i> Manajemen Stok & HPP
-                </button>
-                <button onclick="switchTab('kasir')" id="tabBtnKasir" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">
-                    <i class="fa-solid fa-cash-register"></i> Kasir & Penjualan (POS)
-                </button>
-                <button onclick="switchTab('laporan')" id="tabBtnLaporan" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">
-                    <i class="fa-solid fa-chart-pie"></i> Laporan & Grafik
-                </button>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-2 overflow-x-auto">
+                <div class="flex gap-2">
+                    <button onclick="switchTab('stok')" id="tabBtnStok" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap">
+                        <i class="fa-solid fa-boxes-stacked"></i> Manajemen Stok & HPP
+                    </button>
+                    <button onclick="switchTab('kasir')" id="tabBtnKasir" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">
+                        <i class="fa-solid fa-cash-register"></i> Kasir & Penjualan (POS)
+                    </button>
+                    <button onclick="switchTab('laporan')" id="tabBtnLaporan" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">
+                        <i class="fa-solid fa-chart-pie"></i> Laporan & Grafik
+                    </button>
+                </div>
+                <!-- Tombol Export PDF Pojok Kanan Atas (Hanya Muncul Otomatis saat Tab Laporan aktif) -->
+                <div id="exportPdfContainer" class="hidden">
+                    <button onclick="exportLaporanPDF()" class="bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-md shadow-red-600/20 transition-all flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-file-pdf text-base"></i> Export Laporan PDF
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -618,6 +626,7 @@
                 document.getElementById('tabStok').classList.add('hidden');
                 document.getElementById('tabKasir').classList.add('hidden');
                 document.getElementById('tabLaporan').classList.add('hidden');
+                document.getElementById('exportPdfContainer').classList.add('hidden');
 
                 document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
                 document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
@@ -634,6 +643,7 @@
                 } else if (tabId === 'laporan') {
                     document.getElementById('tabLaporan').classList.remove('hidden');
                     document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+                    document.getElementById('exportPdfContainer').classList.remove('hidden');
                     updateLaporanStatistik();
                     initCharts();
                 }
@@ -966,7 +976,6 @@
 
             tampilkanStrukModal(transaksiBaru);
 
-            // Kosongkan keranjang & kolom uang bayar setelah checkout selesai
             keranjang = [];
             document.getElementById('inputUangBayar').value = "";
             renderKeranjang();
@@ -1115,6 +1124,146 @@
                     }
                 });
             }
+        }
+
+        // --- EXPORT LAPORAN PDF (TANPA GRAFIK, DETAIL HPP, NAMA & KELAS LENGKAP) ---
+        function exportLaporanPDF() {
+            const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
+            const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
+            const totalLaba = totalOmset - totalHppTerjual;
+            const valuasiSisaStok = stokBarang.reduce((sum, s) => sum + (s.hpp * s.stok), 0);
+            const tanggalCetak = new Date().toLocaleString('id-ID');
+
+            let stokHtml = stokBarang.map(s => `
+                <tr>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px;">${escapeHtml(s.nama)}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: center;">${escapeHtml(s.kategori)}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: right;">Rp ${(s.bahan || 0).toLocaleString('id-ID')}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: right;">Rp ${(s.overhead || 0).toLocaleString('id-ID')}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: right; font-weight: bold;">Rp ${(s.hpp || 0).toLocaleString('id-ID')}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: right;">Rp ${(s.hargaJual || 0).toLocaleString('id-ID')}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: center;">${s.margin || 0}%</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: center;">${s.stok || 0} pcs</td>
+                </tr>
+            `).join('');
+
+            let riwayatHtml = riwayatTransaksi.length === 0 ? `<tr><td colspan="6" style="border: 1px solid #cbd5e1; padding: 12px; text-align: center; color: #64748b;">Belum ada transaksi penjualan.</td></tr>` : riwayatTransaksi.map(t => `
+                <tr>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; font-weight: bold;">${t.noFaktur}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px;">${t.waktu}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px;">${t.items.map(i => `${escapeHtml(i.nama)} (${i.qty}x)`).join(', ')}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: right;">Rp ${t.totalHarga.toLocaleString('id-ID')}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: right;">Rp ${t.totalHpp.toLocaleString('id-ID')}</td>
+                    <td style="border: 1px solid #cbd5e1; padding: 8px; text-align: right; font-weight: bold; color: #059669;">Rp ${t.labaKotor.toLocaleString('id-ID')}</td>
+                </tr>
+            `).join('');
+
+            const pdfWindow = window.open('', '_blank');
+            pdfWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="id">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Laporan Keuangan & HPP - ${currentNama}</title>
+                    <style>
+                        body { font-family: 'Inter', Arial, sans-serif; color: #1e293b; padding: 30px; margin: 0; font-size: 14px; }
+                        .header { text-align: center; border-bottom: 2px solid #2563eb; padding-bottom: 15px; margin-bottom: 20px; }
+                        .header h2 { margin: 0; color: #1d4ed8; font-size: 20px; text-transform: uppercase; }
+                        .header p { margin: 4px 0; color: #64748b; font-size: 13px; }
+                        .info-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; }
+                        .info-box div { line-height: 1.5; }
+                        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
+                        .card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; background: #fff; }
+                        .card span { font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: bold; display: block; }
+                        .card h4 { font-size: 16px; margin: 6px 0 0 0; color: #0f172a; }
+                        h3 { font-size: 15px; color: #1e293b; border-left: 4px solid #2563eb; padding-left: 8px; margin-top: 25px; margin-bottom: 10px; }
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
+                        th { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px; text-align: left; font-weight: bold; color: #334155; }
+                        @media print {
+                            body { padding: 10px; }
+                            button { display: none; }
+                        }
+                    </style>
+                </head>
+                <body onload="window.print()">
+                    <div class="header">
+                        <h2>Laporan Praktik Kewirausahaan SMK</h2>
+                        <p>Manajemen Stok, POS Penjualan & Kalkulasi Harga Pokok Penjualan (HPP)</p>
+                    </div>
+
+                    <div class="info-box">
+                        <div>
+                            <strong>Nama Siswa:</strong> ${escapeHtml(currentNama)}<br>
+                            <strong>Kelas:</strong> ${escapeHtml(currentKelas)}
+                        </div>
+                        <div style="text-align: right;">
+                            <strong>Unit Usaha:</strong> ${escapeHtml(currentCompany)}<br>
+                            <strong>Waktu Cetak:</strong> ${tanggalCetak}
+                        </div>
+                    </div>
+
+                    <div class="summary-grid">
+                        <div class="card">
+                            <span>Total Omset Penjualan</span>
+                            <h4 style="color: #2563eb;">Rp ${totalOmset.toLocaleString('id-ID')}</h4>
+                        </div>
+                        <div class="card">
+                            <span>Total HPP Terjual</span>
+                            <h4 style="color: #d97706;">Rp ${totalHppTerjual.toLocaleString('id-ID')}</h4>
+                        </div>
+                        <div class="card">
+                            <span>Laba Kotor Usaha</span>
+                            <h4 style="color: #059669;">Rp ${totalLaba.toLocaleString('id-ID')}</h4>
+                        </div>
+                        <div class="card">
+                            <span>Valuasi Sisa Stok</span>
+                            <h4 style="color: #4f46e5;">Rp ${valuasiSisaStok.toLocaleString('id-ID')}</h4>
+                        </div>
+                    </div>
+
+                    <h3>1. Rincian Kalkulasi HPP & Stok Barang</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Produk</th>
+                                <th style="text-align: center;">Kategori</th>
+                                <th style="text-align: right;">Biaya Bahan</th>
+                                <th style="text-align: right;">Biaya Overhead</th>
+                                <th style="text-align: right;">Total HPP/Unit</th>
+                                <th style="text-align: right;">Harga Jual</th>
+                                <th style="text-align: center;">Margin</th>
+                                <th style="text-align: center;">Sisa Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${stokHtml}
+                        </tbody>
+                    </table>
+
+                    <h3>2. Riwayat Transaksi Penjualan</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No. Faktur</th>
+                                <th>Waktu</th>
+                                <th>Detail Item</th>
+                                <th style="text-align: right;">Omset Jual</th>
+                                <th style="text-align: right;">Total HPP</th>
+                                <th style="text-align: right;">Laba Kotor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${riwayatHtml}
+                        </tbody>
+                    </table>
+
+                    <div style="text-align: center; margin-top: 40px;">
+                        <button onclick="window.print()" style="background: #2563eb; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer;">Cetak / Simpan PDF</button>
+                    </div>
+                </body>
+                </html>
+            `);
+            pdfWindow.document.close();
         }
 
         // --- EXPORT & IMPORT EXCEL (.xlsx) ---
