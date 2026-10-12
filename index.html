@@ -74,7 +74,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-blue-900 text-sm">PT KREATIF FURNITUR</h4>
-                                <p class="text-xs text-slate-500 mt-1">Furniture & Handcraft - Meja, Lemari, Tas Ransel</p>
+                                <p class="text-xs text-slate-500 mt-1">Furniture & Handcraft</p>
                             </div>
                         </label>
 
@@ -85,7 +85,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-slate-800 text-sm">CV ELEKTRONIK INOVASI</h4>
-                                <p class="text-xs text-slate-500 mt-1">Elektronik & Appliances - Kipas Angin, Kulkas, Mesin Cuci</p>
+                                <p class="text-xs text-slate-500 mt-1">Elektronik & Appliances</p>
                             </div>
                         </label>
                     </div>
@@ -165,16 +165,13 @@
                         <button onclick="openAddProductModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-600/20 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-plus"></i> Tambah Barang
                         </button>
-                        <button onclick="resetDefaultStok()" title="Muat ulang barang bawaan sesuai perusahaan" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200">
-                            <i class="fa-solid fa-rotate-right"></i> Reset Default
+                        <button onclick="resetDefaultStok()" title="Kosongkan seluruh stok barang" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200">
+                            <i class="fa-solid fa-rotate-right"></i> Reset / Kosongkan
                         </button>
                         <label class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all shadow-md shadow-emerald-600/20 cursor-pointer flex items-center justify-center gap-2">
                             <i class="fa-solid fa-file-excel"></i> Import Excel
                             <input type="file" id="importExcelFile" accept=".xlsx, .xls" onchange="importExcelStok(event)" class="hidden">
                         </label>
-                        <button onclick="exportExcelStok()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-file-arrow-down"></i> Export Laporan
-                        </button>
                     </div>
                 </div>
 
@@ -473,16 +470,8 @@
     <!-- SCRIPT UTAMA APLIKASI -->
     <script>
         const defaultStokData = {
-            "PT KREATIF FURNITUR": [
-                { nama: "Meja Kayu Minimalis", kategori: "Furniture", bahan: 120000, overhead: 30000, hpp: 150000, margin: 33.33, hargaJual: 200000, stok: 15 },
-                { nama: "Lemari Pakaian 2 Pintu", kategori: "Furniture", bahan: 450000, overhead: 100000, hpp: 550000, margin: 36.36, hargaJual: 750000, stok: 8 },
-                { nama: "Tas Ransel Canvas", kategori: "Handcraft", bahan: 65000, overhead: 15000, hpp: 80000, margin: 50.0, hargaJual: 120000, stok: 25 }
-            ],
-            "CV ELEKTRONIK INOVASI": [
-                { nama: "Kipas Angin Smart Fan", kategori: "Elektronik", bahan: 110000, overhead: 25000, hpp: 135000, margin: 48.15, hargaJual: 200000, stok: 12 },
-                { nama: "Kulkas 2 Pintu Inverter", kategori: "Elektronik", bahan: 1800000, overhead: 200000, hpp: 2000000, margin: 25.0, hargaJual: 2500000, stok: 5 },
-                { nama: "Mesin Cuci Front Loading", kategori: "Elektronik", bahan: 2200000, overhead: 300000, hpp: 2500000, margin: 28.0, hargaJual: 3200000, stok: 6 }
-            ]
+            "PT KREATIF FURNITUR": [],
+            "CV ELEKTRONIK INOVASI": []
         };
 
         let currentNama = localStorage.getItem('smk_nama') || "";
@@ -643,7 +632,7 @@
             if(!tbody) return;
             tbody.innerHTML = "";
             if (!stokBarang || stokBarang.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-400 text-xs">Belum ada data barang. Silakan tambah barang baru.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-400 text-xs">Belum ada data barang. Silakan tambah barang baru atau import dari Excel.</td></tr>`;
                 return;
             }
             stokBarang.forEach((item, index) => {
@@ -762,8 +751,8 @@
         }
 
         function resetDefaultStok() {
-            if (confirm("Muat ulang daftar produk bawaan awal untuk perusahaan ini?")) {
-                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany]));
+            if (confirm("Kosongkan seluruh daftar produk dan stok untuk perusahaan ini?")) {
+                stokBarang = [];
                 localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
                 renderStokTable();
                 renderKatalogKasir();
@@ -1111,7 +1100,7 @@
             }
         }
 
-        // --- PREVIEW & DOWNLOAD / CETAK PDF YANG STABIL DAN AMAN ---
+        // --- PREVIEW & DOWNLOAD / CETAK PDF ---
         function openPdfModal() {
             const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
@@ -1119,7 +1108,7 @@
             const valuasiSisaStok = stokBarang.reduce((sum, s) => sum + (s.hpp * s.stok), 0);
             const tanggalCetak = new Date().toLocaleString('id-ID');
 
-            let stokHtml = stokBarang.map(s => `
+            let stokHtml = stokBarang.length === 0 ? `<tr><td colspan="8" style="border: 1px solid #cbd5e1; padding: 12px; text-align: center; color: #64748b;">Belum ada data stok barang.</td></tr>` : stokBarang.map(s => `
                 <tr>
                     <td style="border: 1px solid #cbd5e1; padding: 6px 8px;">${escapeHtml(s.nama)}</td>
                     <td style="border: 1px solid #cbd5e1; padding: 6px 8px; text-align: center;">${escapeHtml(s.kategori)}</td>
@@ -1226,47 +1215,7 @@
         }
 
         function downloadPdfFile() {
-            // Langsung memanggil fungsi cetak browser untuk menyimpan file sebagai PDF
             window.print();
-        }
-
-        function exportExcelStok() {
-            const wb = XLSX.utils.book_new();
-            const wsInfoData = [
-                ["LAPORAN PRAKTIK KEWIRAUSAHAAN SMK"],
-                ["Nama Siswa", currentNama],
-                ["Kelas", currentKelas],
-                ["Perusahaan Simulasi", currentCompany],
-                [],
-                ["MASTER STOK BARANG & HPP"]
-            ];
-            const wsInfo = XLSX.utils.aoa_to_sheet(wsInfoData);
-            XLSX.utils.book_append_sheet(wb, wsInfo, "Info & Ringkasan");
-
-            const stokSheetData = stokBarang.map(s => ({
-                "Nama Produk": s.nama,
-                "Kategori": s.kategori,
-                "Biaya Bahan (Rp)": s.bahan,
-                "Biaya Overhead (Rp)": s.overhead,
-                "Total HPP/Unit (Rp)": s.hpp,
-                "Margin (%)": s.margin,
-                "Harga Jual (Rp)": s.hargaJual,
-                "Stok": s.stok
-            }));
-            const wsStok = XLSX.utils.json_to_sheet(stokSheetData);
-            XLSX.utils.book_append_sheet(wb, wsStok, "Daftar Stok & HPP");
-
-            const riwayatSheetData = riwayatTransaksi.map(t => ({
-                "No. Faktur": t.noFaktur,
-                "Waktu": t.waktu,
-                "Total Omset (Rp)": t.totalHarga,
-                "Total HPP (Rp)": t.totalHpp,
-                "Laba Kotor (Rp)": t.labaKotor
-            }));
-            const wsRiwayat = XLSX.utils.json_to_sheet(riwayatSheetData);
-            XLSX.utils.book_append_sheet(wb, wsRiwayat, "Riwayat Penjualan");
-
-            XLSX.writeFile(wb, `Laporan_Kewirausahaan_${currentNama.replace(/\s+/g, '_')}_${currentCompany.replace(/\s+/g, '_')}.xlsx`);
         }
 
         function importExcelStok(event) {
