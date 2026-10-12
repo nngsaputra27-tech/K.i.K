@@ -16,8 +16,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- SheetJS (xlsx) -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <!-- html2pdf.js untuk export PDF langsung -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -29,7 +27,6 @@
     <!-- MODAL IDENTITAS SISWA & PERUSAHAAN -->
     <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden border border-blue-100 transform transition-all my-auto">
-            <!-- Header Modal -->
             <div class="bg-gradient-to-r from-blue-700 to-blue-600 p-6 text-white text-center relative">
                 <div class="mx-auto w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-3 border border-white/20 shadow-inner">
                     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +38,6 @@
                 <p class="text-blue-100 text-xs sm:text-sm mt-1">Aplikasi Praktik Stok Barang, Penjualan & Kalkulasi HPP Siswa</p>
             </div>
 
-            <!-- Form Body -->
             <div class="p-6 sm:p-8 space-y-5">
                 <div>
                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Nama Lengkap Siswa</label>
@@ -99,7 +95,6 @@
 
     <!-- MAIN APP WRAPPER -->
     <div id="appContainer" class="flex flex-col min-h-screen hidden">
-        <!-- HEADER NAVBAR -->
         <header class="bg-white border-b border-blue-100 sticky top-0 z-40 shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -127,7 +122,6 @@
             </div>
         </header>
 
-        <!-- SUB HEADER NAVIGATION TABS -->
         <div class="bg-white border-b border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-2 overflow-x-auto">
                 <div class="flex gap-2">
@@ -142,16 +136,14 @@
                     </button>
                 </div>
                 <div id="exportPdfContainer" class="hidden">
-                    <button onclick="openPdfModal()" class="bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-md shadow-red-600/20 transition-all flex items-center gap-2 whitespace-nowrap">
+                    <button onclick="openPdfModal()" class="bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-md shadow-red-600/20 transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer">
                         <i class="fa-solid fa-file-pdf text-base"></i> Export Laporan PDF
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- MAIN CONTENT CONTAINER -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
-
             <!-- TAB 1: MANAJEMEN STOK & HPP -->
             <div id="tabStok" class="space-y-6">
                 <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 rounded-2xl border border-blue-100 shadow-sm">
@@ -197,9 +189,7 @@
                                     <th class="py-3.5 px-4 text-center">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabelStokBody" class="divide-y divide-slate-100 text-sm font-medium">
-                                <!-- Rendered dynamically -->
-                            </tbody>
+                            <tbody id="tabelStokBody" class="divide-y divide-slate-100 text-sm font-medium"></tbody>
                         </table>
                     </div>
                 </div>
@@ -218,10 +208,7 @@
                             </div>
                             <span class="text-xs text-slate-500 font-medium">Klik produk untuk tambah ke keranjang</span>
                         </div>
-
-                        <div id="katalogKasirGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <!-- Rendered dynamically -->
-                        </div>
+                        <div id="katalogKasirGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
                     </div>
 
                     <div class="lg:col-span-5 space-y-4">
@@ -230,13 +217,11 @@
                                 <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
                                     <i class="fa-solid fa-cart-shopping text-blue-600"></i> Keranjang Belanja
                                 </h3>
-                                <button onclick="clearKeranjang()" class="text-xs text-red-500 hover:text-red-700 font-semibold">Kosongkan</button>
+                                <button onclick="clearKeranjang()" class="text-xs text-red-500 hover:text-red-700 font-semibold cursor-pointer">Kosongkan</button>
                             </div>
-
                             <div id="keranjangItemList" class="divide-y divide-slate-100 max-h-64 overflow-y-auto space-y-2 pr-1">
                                 <p class="text-xs text-slate-400 text-center py-6">Keranjang masih kosong. Silakan pilih produk dari katalog.</p>
                             </div>
-
                             <div class="border-t border-slate-200 pt-3 space-y-2 text-sm font-semibold">
                                 <div class="flex justify-between text-slate-600 text-xs">
                                     <span>Total Item</span>
@@ -247,7 +232,6 @@
                                     <span id="summaryTotalHarga" class="text-blue-600">Rp 0</span>
                                 </div>
                             </div>
-
                             <div class="space-y-1.5 pt-2">
                                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Uang yang di terima:</label>
                                 <div class="relative">
@@ -258,8 +242,7 @@
                                 <span class="text-slate-600 text-xs">Uang Kembalian:</span>
                                 <span id="labelKembalian" class="text-emerald-600">Rp 0</span>
                             </div>
-
-                            <button onclick="prosesCheckout()" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 text-sm">
+                            <button onclick="prosesCheckout()" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer">
                                 <i class="fa-solid fa-circle-check"></i> Proses & Selesaikan Transaksi
                             </button>
                         </div>
@@ -271,7 +254,7 @@
                         <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
                             <i class="fa-solid fa-clock-rotate-left text-blue-600"></i> Riwayat Transaksi Penjualan
                         </h3>
-                        <button onclick="resetRiwayat()" class="text-xs text-red-500 font-semibold hover:underline">Hapus Riwayat</button>
+                        <button onclick="resetRiwayat()" class="text-xs text-red-500 font-semibold hover:underline cursor-pointer">Hapus Riwayat</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse min-w-[700px]">
@@ -286,9 +269,7 @@
                                     <th class="py-3 px-4 text-center">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabelRiwayatBody" class="divide-y divide-slate-100 text-sm font-medium">
-                                <!-- Rendered dynamically -->
-                            </tbody>
+                            <tbody id="tabelRiwayatBody" class="divide-y divide-slate-100 text-sm font-medium"></tbody>
                         </table>
                     </div>
                 </div>
@@ -350,10 +331,8 @@
                     </div>
                 </div>
             </div>
-
         </main>
 
-        <!-- FOOTER -->
         <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
             <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 font-medium">
                 SMK KREATIF INOVATIF KEWIRAUSAHAAN &copy; 2026 &bull; Aplikasi Pembelajaran Praktik Kewirausahaan Siswa SMK
@@ -371,9 +350,7 @@
                 <button type="button" onclick="closePdfModal()" class="text-slate-400 hover:text-white text-lg cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
-            <div id="pdfContentArea" class="p-6 sm:p-8 overflow-y-auto bg-slate-50 flex-1 space-y-6 text-slate-800 text-xs sm:text-sm">
-                <!-- Rendered Dynamically -->
-            </div>
+            <div id="pdfContentArea" class="p-6 sm:p-8 overflow-y-auto bg-slate-50 flex-1 space-y-6 text-slate-800 text-xs sm:text-sm"></div>
 
             <div class="bg-white p-4 sm:p-5 border-t border-slate-200 flex flex-wrap justify-end gap-3 shrink-0">
                 <button type="button" onclick="downloadPdfFile()" class="bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-2.5 px-5 rounded-xl shadow-md text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer">
@@ -458,9 +435,7 @@
                     <span>No. Faktur:</span>
                     <span id="strukNoFaktur" class="text-slate-900">-</span>
                 </div>
-                <div id="strukItemList" class="space-y-1 divide-y divide-dashed divide-slate-100 pt-1 pb-2">
-                    <!-- Struk Items -->
-                </div>
+                <div id="strukItemList" class="space-y-1 divide-y divide-dashed divide-slate-100 pt-1 pb-2"></div>
                 <div class="border-t border-slate-200 pt-2 space-y-1 font-semibold text-slate-700">
                     <div class="flex justify-between text-sm font-bold">
                         <span>Total Belanja:</span>
@@ -1131,7 +1106,7 @@
             }
         }
 
-        // --- PREVIEW & DOWNLOAD PDF (FIXED MODAL & DOWNLOAD BUTTON) ---
+        // --- PREVIEW & DOWNLOAD / CETAK PDF (STABIL & AMAN) ---
         function openPdfModal() {
             const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
@@ -1215,9 +1190,7 @@
                                 <th style="border: 1px solid #cbd5e1; padding: 6px 8px; text-align: center;">Stok</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            ${stokHtml}
-                        </tbody>
+                        <tbody>${stokHtml}</tbody>
                     </table>
 
                     <h3 style="font-size: 14px; color: #1e293b; border-left: 4px solid #2563eb; padding-left: 8px; margin-top: 20px; margin-bottom: 8px;">2. Riwayat Transaksi Penjualan</h3>
@@ -1232,9 +1205,7 @@
                                 <th style="border: 1px solid #cbd5e1; padding: 6px 8px; text-align: right;">Laba Kotor</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            ${riwayatHtml}
-                        </tbody>
+                        <tbody>${riwayatHtml}</tbody>
                     </table>
                 </div>
             `;
@@ -1250,28 +1221,39 @@
         }
 
         function downloadPdfFile() {
-            const element = document.getElementById('printableArea');
-            if (!element) return;
-            
-            const opt = {
-                margin:       10,
-                filename:     `Laporan_Kewirausahaan_${currentNama.replace(/\s+/g, '_')}_${currentCompany.replace(/\s+/g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: false },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
+            const printableContent = document.getElementById('printableArea');
+            if (!printableContent) return;
 
-            html2pdf().from(element).set(opt).save().then(() => {
-                // Opsional: Tutup modal otomatis setelah berhasil download atau biarkan terbuka
-            }).catch(err => {
-                console.error("Gagal mendownload PDF:", err);
-                alert("Terjadi kesalahan saat mengunduh PDF.");
-            });
+            // Membuka jendela khusus cetak browser yang bersih dan langsung mengarahkan ke Save to PDF
+            const printWindow = window.open('', '_blank', 'width=900,height=650');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="id">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Laporan Keuangan & HPP - ${currentNama}</title>
+                    <style>
+                        body { font-family: 'Inter', Arial, sans-serif; padding: 20px; color: #1e293b; }
+                        @media print {
+                            body { padding: 0; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${printableContent.innerHTML}
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
         }
 
         function exportExcelStok() {
             const wb = XLSX.utils.book_new();
-
             const wsInfoData = [
                 ["LAPORAN PRAKTIK KEWIRAUSAHAAN SMK"],
                 ["Nama Siswa", currentNama],
