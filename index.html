@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMK INNOVENTURE - Aplikasi Stok Barang, Penjualan & HPP</title>
+    <title>SMK KREATIF INOVATIF KEWIRAUSAHAAN - Aplikasi Stok Barang, Penjualan & HPP</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -37,19 +37,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- SheetJS (xlsx.full.min.js) for Excel Import/Export -->
+    <!-- SheetJS for Excel Import/Export -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-        }
         .gradient-text {
             background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #0284c7 100%);
             -webkit-background-clip: text;
@@ -66,48 +60,63 @@
 
     <!-- Modal Login Identitas Siswa & Perusahaan -->
     <div id="login-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-8 space-y-6 relative overflow-hidden">
+        <div class="bg-white w-full max-w-lg rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-8 space-y-6 relative overflow-hidden max-h-[90vh] overflow-y-auto">
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
             
             <div class="text-center space-y-2">
                 <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex items-center justify-center mx-auto shadow-lg shadow-blue-500/30">
                     <i data-lucide="store" class="w-9 h-9 text-white"></i>
                 </div>
-                <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">SMK INNOVENTURE</h2>
+                <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">SMK KREATIF INOVATIF KEWIRAUSAHAAN</h2>
                 <p class="text-xs text-slate-500 font-medium">Aplikasi Stok Barang, Penjualan & Kalkulasi HPP Siswa</p>
             </div>
 
             <div class="space-y-4">
+                <!-- Field 1: Nama Lengkap Siswa -->
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap Siswa</label>
                     <div class="relative">
                         <i data-lucide="user" class="w-4 h-4 absolute left-3.5 top-3 text-slate-400"></i>
-                        <input type="text" id="input-student-name" placeholder="Masukkan nama lengkap..." class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all">
+                        <input type="text" id="input-student-name" placeholder="Masukkan nama lengkap siswa..." class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all">
                     </div>
                 </div>
 
+                <!-- Field 2: Kelas Siswa -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pilih Tingkat Kelas & Perusahaan Simulasi</label>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kelas Siswa</label>
+                    <div class="relative">
+                        <i data-lucide="graduation-cap" class="w-4 h-4 absolute left-3.5 top-3 text-slate-400"></i>
+                        <input type="text" id="input-student-class" placeholder="Contoh: XI AKL 1 / XII OTKP 2 / XI RPL" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all">
+                    </div>
+                </div>
+
+                <!-- Section 3: Pilih Perusahaan Simulasi -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pilih Perusahaan Simulasi</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <label id="lbl-grade-xi" onclick="selectGrade('XI')" class="cursor-pointer border border-slate-200 bg-slate-50/80 p-3.5 rounded-xl flex flex-col justify-between hover:border-blue-500 hover:bg-blue-50/30 transition-all">
+                        <label id="lbl-company-xi" onclick="selectCompany('PT KREATIF FURNITUR XI')" class="cursor-pointer border border-slate-200 bg-slate-50/80 p-3.5 rounded-xl flex flex-col justify-between hover:border-blue-500 hover:bg-blue-50/30 transition-all">
                             <div class="flex items-center gap-2 mb-2">
-                                <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">XI</div>
-                                <span class="text-xs font-bold text-slate-800">Kelas XI</span>
+                                <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+                                    <i data-lucide="armchair" class="w-4 h-4"></i>
+                                </div>
+                                <span class="text-xs font-bold text-slate-800">Unit Usaha 1</span>
                             </div>
                             <div>
                                 <span class="block text-xs font-extrabold text-blue-700">PT KREATIF FURNITUR XI</span>
-                                <span class="block text-[10px] text-slate-500 mt-0.5">Meja, Lemari, Tas Ransel</span>
+                                <span class="block text-[10px] text-slate-500 mt-0.5">Sektor Furniture & Crafts - Meja, Lemari, Tas Ransel</span>
                             </div>
                         </label>
 
-                        <label id="lbl-grade-xii" onclick="selectGrade('XII')" class="cursor-pointer border border-slate-200 bg-slate-50/80 p-3.5 rounded-xl flex flex-col justify-between hover:border-indigo-500 hover:bg-indigo-50/30 transition-all">
+                        <label id="lbl-company-xii" onclick="selectCompany('CV ELEKTRONIK INOVASI XII')" class="cursor-pointer border border-slate-200 bg-slate-50/80 p-3.5 rounded-xl flex flex-col justify-between hover:border-indigo-500 hover:bg-indigo-50/30 transition-all">
                             <div class="flex items-center gap-2 mb-2">
-                                <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">XII</div>
-                                <span class="text-xs font-bold text-slate-800">Kelas XII</span>
+                                <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">
+                                    <i data-lucide="tv" class="w-4 h-4"></i>
+                                </div>
+                                <span class="text-xs font-bold text-slate-800">Unit Usaha 2</span>
                             </div>
                             <div>
                                 <span class="block text-xs font-extrabold text-indigo-700">CV ELEKTRONIK INOVASI XII</span>
-                                <span class="block text-[10px] text-slate-500 mt-0.5">Kipas Angin, Kulkas, Mesin Cuci</span>
+                                <span class="block text-[10px] text-slate-500 mt-0.5">Sektor Elektronik & Appliances - Kipas Angin, Kulkas, Mesin Cuci</span>
                             </div>
                         </label>
                     </div>
@@ -132,7 +141,7 @@
                         <i data-lucide="box" class="w-6 h-6 text-white"></i>
                     </div>
                     <div>
-                        <span class="font-extrabold text-lg sm:text-xl tracking-tight gradient-text">SMK INNOVENTURE</span>
+                        <span class="font-extrabold text-base sm:text-lg tracking-tight gradient-text">SMK KREATIF INOVATIF KEWIRAUSAHAAN</span>
                         <span class="block text-[10px] text-slate-500 font-semibold tracking-wider uppercase">Stok, Penjualan & HPP</span>
                     </div>
                 </div>
@@ -145,7 +154,7 @@
                     <div class="text-left">
                         <div class="flex items-center gap-1.5">
                             <span id="badge-company-name" class="text-xs font-black text-blue-900">PT KREATIF FURNITUR XI</span>
-                            <span id="badge-student-grade" class="px-1.5 py-0.2 text-[9px] font-extrabold rounded bg-blue-600 text-white border border-blue-700">XI</span>
+                            <span id="badge-student-class" class="px-1.5 py-0.2 text-[9px] font-extrabold rounded bg-blue-600 text-white border border-blue-700">XI AKL 1</span>
                         </div>
                         <span id="badge-student-name" class="text-[10px] text-slate-600 font-medium block">Siswa: -</span>
                     </div>
@@ -195,13 +204,13 @@
                     <p class="text-sm text-slate-500 mt-1">Kelola daftar produk spesifik, rincian biaya bahan + overhead, dan penentuan harga jual per unit.</p>
                 </div>
                 <div class="flex items-center gap-2 flex-wrap">
-                    <button onclick="resetToClassDefaults()" class="px-3 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all shadow-sm" title="Muat ulang 3 barang default kelas">
+                    <button onclick="resetToClassDefaults()" class="px-3 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all shadow-sm" title="Muat ulang barang default kelas">
                         <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-600"></i>
-                        <span>Reset Barang Default Kelas</span>
+                        <span>Reset Barang Default</span>
                     </button>
                     <label class="cursor-pointer px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-xl flex items-center gap-2 border border-slate-200 transition-all shadow-sm">
                         <i data-lucide="upload" class="w-4 h-4 text-blue-600"></i>
-                        <span>Impor Master Stok (.xlsx)</span>
+                        <span>Impor Excel (.xlsx)</span>
                         <input type="file" id="excel-inventory-input" accept=".xlsx, .xls" class="hidden" onchange="importInventoryFromExcel(event)">
                     </label>
                     <button onclick="openAddProductModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-md shadow-blue-600/20 transition-all">
@@ -230,7 +239,7 @@
                             <tr class="border-b border-slate-200 bg-blue-50/70 text-[11px] font-bold text-blue-900 uppercase tracking-wider">
                                 <th class="py-3.5 px-4">Kode & Nama Barang</th>
                                 <th class="py-3.5 px-4">Kategori</th>
-                                <th class="py-3.5 px-4 text-right">Biaya Bahan/Kulakan</th>
+                                <th class="py-3.5 px-4 text-right">Biaya Bahan</th>
                                 <th class="py-3.5 px-4 text-right">Biaya Overhead/TK</th>
                                 <th class="py-3.5 px-4 text-right text-blue-700">Total HPP / Unit</th>
                                 <th class="py-3.5 px-4 text-right text-emerald-700">Harga Jual</th>
@@ -327,7 +336,7 @@
                 <!-- Transaction Summary Stats -->
                 <div class="lg:col-span-5 space-y-5">
                     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-                        <h3 class="text-base font-extrabold text-slate-900">Ringkasan Sesi Penjualan</h3>
+                        <h3 class="text-base font-extrabold text-slate-900">Ringkasan Penjualan</h3>
                         <div class="space-y-3">
                             <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
                                 <span class="text-[10px] text-slate-500 uppercase font-bold block">Total Omset (Revenue)</span>
@@ -443,7 +452,7 @@
                 </div>
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1">Kategori Produk</label>
-                    <input type="text" id="form-category" placeholder="Furnitur / Elektronik / Garment" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-blue-600">
+                    <input type="text" id="form-category" placeholder="Furnitur / Elektronik" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-blue-600">
                 </div>
             </div>
 
@@ -457,7 +466,7 @@
                 <span class="text-[11px] font-bold text-blue-900 uppercase tracking-wider block">Kalkulasi HPP Per Unit</span>
                 <div class="grid grid-cols-2 gap-3 text-xs">
                     <div>
-                        <label class="block text-[10px] text-slate-600 mb-1">Biaya Bahan / Kulakan (Rp)</label>
+                        <label class="block text-[10px] text-slate-600 mb-1">Biaya Bahan (Rp)</label>
                         <input type="number" id="form-cost-material" min="0" value="0" oninput="calculateModalHpp()" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-slate-800 focus:border-blue-600">
                     </div>
                     <div>
@@ -493,9 +502,9 @@
         <div class="bg-white w-full max-w-sm rounded-2xl border border-slate-200 p-6 space-y-4 text-slate-800 shadow-2xl">
             <div id="printable-receipt" class="space-y-3 p-4 bg-slate-50 text-slate-900 rounded-xl text-xs font-mono border border-slate-200">
                 <div class="text-center border-b border-dashed border-slate-300 pb-2">
-                    <h4 id="receipt-company" class="font-bold text-sm uppercase text-blue-900">PT KREATIF FURNITUR XI</h4>
-                    <p class="text-[10px] text-slate-500">Praktik Kewirausahaan SMK</p>
-                    <p id="receipt-student" class="text-[10px] text-slate-600">Kasir: -</p>
+                    <h4 class="font-bold text-xs uppercase text-blue-900 leading-tight">SMK KREATIF INOVATIF KEWIRAUSAHAAN</h4>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Praktik Penjualan Siswa</p>
+                    <p id="receipt-student" class="text-[10px] text-slate-600 font-bold">Siswa: -</p>
                 </div>
                 <div class="space-y-1">
                     <div class="flex justify-between text-[10px]">
@@ -539,7 +548,7 @@
     <!-- Application Logic Script -->
     <script>
         // Global State Variables
-        let currentStudent = { name: '', grade: '', company: '' };
+        let currentStudent = { name: '', classSection: '', company: '' };
         let inventoryList = [];
         let salesTransactions = [];
 
@@ -547,16 +556,16 @@
         let topProductsChart = null;
 
         // Specific Required Default Products
-        const mockInventoryClassXI = [
-            { code: 'XI-MJ01', name: 'Meja Kayu Minimalis', category: 'Furnitur Kayu', costMaterial: 180000, costLabor: 70000, sellingPrice: 350000, stock: 15 },
-            { code: 'XI-LM02', name: 'Lemari Pakaian 2 Pintu', category: 'Furnitur Kayu', costMaterial: 450000, costLabor: 150000, sellingPrice: 850000, stock: 8 },
-            { code: 'XI-TS03', name: 'Tas Ransel Canvas Inovatif', category: 'Garment & Kriya', costMaterial: 65000, costLabor: 25000, sellingPrice: 135000, stock: 25 }
+        const mockInventoryFurniture = [
+            { code: 'FUR-01', name: 'Meja Kayu Minimalis', category: 'Furnitur Kayu', costMaterial: 180000, costLabor: 70000, sellingPrice: 350000, stock: 15 },
+            { code: 'FUR-02', name: 'Lemari Pakaian 2 Pintu', category: 'Furnitur Kayu', costMaterial: 450000, costLabor: 150000, sellingPrice: 850000, stock: 8 },
+            { code: 'FUR-03', name: 'Tas Ransel Canvas Inovatif', category: 'Garment & Kriya', costMaterial: 65000, costLabor: 25000, sellingPrice: 135000, stock: 25 }
         ];
 
-        const mockInventoryClassXII = [
-            { code: 'XII-KP01', name: 'Kipas Angin Smart Fan', category: 'Elektronik Rumah', costMaterial: 120000, costLabor: 30000, sellingPrice: 220000, stock: 30 },
-            { code: 'XII-KL02', name: 'Kulkas 2 Pintu Inverter', category: 'Alat Rumah Tangga', costMaterial: 1800000, costLabor: 300000, sellingPrice: 2850000, stock: 6 },
-            { code: 'XII-MC03', name: 'Mesin Cuci Front Loading 8 kg', category: 'Alat Rumah Tangga', costMaterial: 2200000, costLabor: 400000, sellingPrice: 3450000, stock: 5 }
+        const mockInventoryElectronics = [
+            { code: 'ELC-01', name: 'Kipas Angin Smart Fan', category: 'Elektronik Rumah', costMaterial: 120000, costLabor: 30000, sellingPrice: 220000, stock: 30 },
+            { code: 'ELC-02', name: 'Kulkas 2 Pintu Inverter', category: 'Alat Rumah Tangga', costMaterial: 1800000, costLabor: 300000, sellingPrice: 2850000, stock: 6 },
+            { code: 'ELC-03', name: 'Mesin Cuci Front Loading 8 kg', category: 'Alat Rumah Tangga', costMaterial: 2200000, costLabor: 400000, sellingPrice: 3450000, stock: 5 }
         ];
 
         // On DOM Loaded
@@ -571,7 +580,7 @@
             if (saved) {
                 try {
                     currentStudent = JSON.parse(saved);
-                    if (currentStudent.name && currentStudent.grade) {
+                    if (currentStudent.name && currentStudent.company) {
                         applyProfileUI();
                         loadInitialData();
                         return;
@@ -581,25 +590,28 @@
             document.getElementById('login-modal').classList.remove('hidden');
         }
 
-        function selectGrade(grade) {
-            currentStudent.grade = grade;
-            currentStudent.company = grade === 'XI' ? 'PT KREATIF FURNITUR XI' : 'CV ELEKTRONIK INOVASI XII';
+        function selectCompany(companyName) {
+            currentStudent.company = companyName;
 
-            document.getElementById('lbl-grade-xi').className = grade === 'XI' ? 
+            document.getElementById('lbl-company-xi').className = companyName === 'PT KREATIF FURNITUR XI' ? 
                 'cursor-pointer border-2 border-blue-600 bg-blue-50/80 p-3.5 rounded-xl flex flex-col justify-between transition-all shadow-sm' : 
                 'cursor-pointer border border-slate-200 bg-slate-50/80 p-3.5 rounded-xl flex flex-col justify-between hover:border-blue-500 hover:bg-blue-50/30 transition-all';
             
-            document.getElementById('lbl-grade-xii').className = grade === 'XII' ? 
+            document.getElementById('lbl-company-xii').className = companyName === 'CV ELEKTRONIK INOVASI XII' ? 
                 'cursor-pointer border-2 border-indigo-600 bg-indigo-50/80 p-3.5 rounded-xl flex flex-col justify-between transition-all shadow-sm' : 
                 'cursor-pointer border border-slate-200 bg-slate-50/80 p-3.5 rounded-xl flex flex-col justify-between hover:border-indigo-500 hover:bg-indigo-50/30 transition-all';
         }
 
         function saveStudentProfile() {
             const name = document.getElementById('input-student-name').value.trim();
-            if (!name) { alert('Mohon masukkan nama siswa!'); return; }
-            if (!currentStudent.grade) { alert('Mohon pilih tingkat kelas!'); return; }
+            const classSection = document.getElementById('input-student-class').value.trim();
+
+            if (!name) { alert('Mohon masukkan nama lengkap siswa!'); return; }
+            if (!classSection) { alert('Mohon masukkan kelas siswa!'); return; }
+            if (!currentStudent.company) { alert('Mohon pilih perusahaan simulasi!'); return; }
 
             currentStudent.name = name;
+            currentStudent.classSection = classSection;
             localStorage.setItem('smk_inventory_student', JSON.stringify(currentStudent));
 
             document.getElementById('login-modal').classList.add('hidden');
@@ -609,26 +621,28 @@
 
         function editStudentProfile() {
             document.getElementById('input-student-name').value = currentStudent.name || '';
-            if (currentStudent.grade) selectGrade(currentStudent.grade);
+            document.getElementById('input-student-class').value = currentStudent.classSection || '';
+            if (currentStudent.company) selectCompany(currentStudent.company);
             document.getElementById('login-modal').classList.remove('hidden');
         }
 
         function applyProfileUI() {
             document.getElementById('badge-student-name').innerText = `Siswa: ${currentStudent.name}`;
-            document.getElementById('badge-student-grade').innerText = currentStudent.grade;
+            document.getElementById('badge-student-class').innerText = currentStudent.classSection || 'Kelas';
             document.getElementById('badge-company-name').innerText = currentStudent.company;
             document.getElementById('student-badge-container').classList.remove('hidden');
         }
 
         function loadInitialData() {
-            const inventoryKey = `smk_inventory_list_${currentStudent.grade}`;
-            const salesKey = `smk_sales_list_${currentStudent.grade}`;
+            const companySlug = currentStudent.company.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            const inventoryKey = `smk_inventory_list_${companySlug}`;
+            const salesKey = `smk_sales_list_${companySlug}`;
 
             const savedInv = localStorage.getItem(inventoryKey);
             if (savedInv) {
                 inventoryList = JSON.parse(savedInv);
             } else {
-                inventoryList = currentStudent.grade === 'XI' ? [...mockInventoryClassXI] : [...mockInventoryClassXII];
+                inventoryList = currentStudent.company === 'PT KREATIF FURNITUR XI' ? [...mockInventoryFurniture] : [...mockInventoryElectronics];
                 saveInventoryToStorage();
             }
 
@@ -641,8 +655,8 @@
         }
 
         function resetToClassDefaults() {
-            if (confirm(`Reset master stok ke 3 barang default spesifik untuk Kelas ${currentStudent.grade}?`)) {
-                inventoryList = currentStudent.grade === 'XI' ? [...mockInventoryClassXI] : [...mockInventoryClassXII];
+            if (confirm(`Reset master stok ke barang default perusahaan ${currentStudent.company}?`)) {
+                inventoryList = currentStudent.company === 'PT KREATIF FURNITUR XI' ? [...mockInventoryFurniture] : [...mockInventoryElectronics];
                 saveInventoryToStorage();
                 renderInventoryTable();
                 populatePosProductSelect();
@@ -651,239 +665,57 @@
         }
 
         function saveInventoryToStorage() {
-            localStorage.setItem(`smk_inventory_list_${currentStudent.grade}`, JSON.stringify(inventoryList));
+            const companySlug = currentStudent.company.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            localStorage.setItem(`smk_inventory_list_${companySlug}`, JSON.stringify(inventoryList));
         }
 
         function saveSalesToStorage() {
-            localStorage.setItem(`smk_sales_list_${currentStudent.grade}`, JSON.stringify(salesTransactions));
+            const companySlug = currentStudent.company.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            localStorage.setItem(`smk_sales_list_${companySlug}`, JSON.stringify(salesTransactions));
         }
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+        function exportFullReportToExcel() {
+            if (!currentStudent.name) { alert('Isi identitas siswa!'); return; }
 
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = 'nav-btn px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100';
+            const wb = XLSX.utils.book_new();
+
+            // Sheet 1: Master Stok & HPP
+            const invData = [
+                ["LAPORAN MASTER STOK BARANG & HPP"],
+                ["Siswa", currentStudent.name, "Kelas", currentStudent.classSection, "Perusahaan", currentStudent.company],
+                [],
+                ["KODE", "NAMA BARANG", "KATEGORI", "BIAYA BAHAN/KULAKAN (RP)", "BIAYA OVERHEAD (RP)", "TOTAL HPP (RP)", "HARGA JUAL (RP)", "STOK TERSISA"]
+            ];
+
+            inventoryList.forEach(i => {
+                const totalHpp = i.costMaterial + i.costLabor;
+                invData.push([i.code, i.name, i.category, i.costMaterial, i.costLabor, totalHpp, i.sellingPrice, i.stock]);
             });
 
-            const activeBtn = document.getElementById(`nav-${tabId}`);
-            if (activeBtn) {
-                activeBtn.className = 'nav-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-blue-600 text-white shadow-md shadow-blue-500/20';
-            }
+            const wsInv = XLSX.utils.aoa_to_sheet(invData);
+            XLSX.utils.book_append_sheet(wb, wsInv, "Master Stok & HPP");
 
-            if (tabId === 'pos') populatePosProductSelect();
-            if (tabId === 'dashboard') updateDashboardKPIs();
-        }
+            // Sheet 2: Riwayat Penjualan
+            const salesData = [
+                ["RIWAYAT TRANSAKSI PENJUALAN"],
+                ["Siswa", currentStudent.name, "Kelas", currentStudent.classSection, "Perusahaan", currentStudent.company],
+                [],
+                ["FAKTUR", "TANGGAL", "PEMBELI", "NAMA BARANG", "QTY", "TOTAL OMSET (RP)", "TOTAL HPP (RP)", "LABA KOTOR (RP)"]
+            ];
 
-        function renderInventoryTable() {
-            const tbody = document.getElementById('inventory-tbody');
-            const search = document.getElementById('inventory-search').value.toLowerCase();
-            tbody.innerHTML = '';
-
-            const filtered = inventoryList.filter(item => 
-                item.name.toLowerCase().includes(search) || item.code.toLowerCase().includes(search)
-            );
-
-            document.getElementById('total-inventory-count').innerText = `${filtered.length} Item`;
-
-            filtered.forEach((item, index) => {
-                const totalHpp = item.costMaterial + item.costLabor;
-                const profit = item.sellingPrice - totalHpp;
-                const marginPercent = totalHpp > 0 ? Math.round((profit / totalHpp) * 100) : 0;
-
-                const tr = document.createElement('tr');
-                tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition-all';
-                tr.innerHTML = `
-                    <td class="py-3 px-4">
-                        <span class="font-bold text-slate-900 block">${item.name}</span>
-                        <span class="text-[10px] text-slate-500 font-mono">${item.code}</span>
-                    </td>
-                    <td class="py-3 px-4">
-                        <span class="px-2 py-0.5 text-[10px] bg-slate-100 text-slate-700 rounded border border-slate-200 font-medium">${item.category}</span>
-                    </td>
-                    <td class="py-3 px-4 text-right font-medium">Rp ${item.costMaterial.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right font-medium">Rp ${item.costLabor.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right font-extrabold text-blue-700">Rp ${totalHpp.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right font-extrabold text-emerald-700">Rp ${item.sellingPrice.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right text-sky-700 font-bold">+${marginPercent}%</td>
-                    <td class="py-3 px-4 text-center">
-                        <span class="px-2.5 py-1 text-xs font-bold rounded-lg ${item.stock > 5 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}">${item.stock} Unit</span>
-                    </td>
-                    <td class="py-3 px-4 text-center">
-                        <div class="flex items-center justify-center gap-1">
-                            <button onclick="editProduct(${index})" class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                            <button onclick="deleteProduct(${index})" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+            salesTransactions.forEach(s => {
+                salesData.push([s.invoice, s.date, s.customer, s.itemName, s.qty, s.omzet, s.hpp, s.profit]);
             });
-            lucide.createIcons();
-        }
 
-        function openAddProductModal() {
-            document.getElementById('modal-product-title').innerText = "Tambah Barang Baru & HPP";
-            document.getElementById('form-product-index').value = "-1";
-            document.getElementById('form-code').value = `BRG-00${inventoryList.length + 1}`;
-            document.getElementById('form-name').value = '';
-            document.getElementById('form-category').value = '';
-            document.getElementById('form-cost-material').value = 0;
-            document.getElementById('form-cost-labor').value = 0;
-            document.getElementById('form-price').value = 0;
-            document.getElementById('form-stock').value = 10;
-            calculateModalHpp();
-            document.getElementById('product-modal').classList.remove('hidden');
-        }
+            const wsSales = XLSX.utils.aoa_to_sheet(salesData);
+            XLSX.utils.book_append_sheet(wb, wsSales, "Laporan Penjualan");
 
-        function closeProductModal() {
-            document.getElementById('product-modal').classList.add('hidden');
-        }
-
-        function calculateModalHpp() {
-            const mat = parseFloat(document.getElementById('form-cost-material').value) || 0;
-            const lab = parseFloat(document.getElementById('form-cost-labor').value) || 0;
-            const total = mat + lab;
-            document.getElementById('form-total-hpp').innerText = `Rp ${total.toLocaleString('id-ID')}`;
-        }
-
-        function saveProductForm() {
-            const idx = parseInt(document.getElementById('form-product-index').value);
-            const code = document.getElementById('form-code').value.trim();
-            const name = document.getElementById('form-name').value.trim();
-            const category = document.getElementById('form-category').value.trim() || 'Umum';
-            const costMaterial = parseFloat(document.getElementById('form-cost-material').value) || 0;
-            const costLabor = parseFloat(document.getElementById('form-cost-labor').value) || 0;
-            const sellingPrice = parseFloat(document.getElementById('form-price').value) || 0;
-            const stock = parseInt(document.getElementById('form-stock').value) || 0;
-
-            if (!code || !name) { alert('Kode dan Nama Barang Wajib diisi!'); return; }
-
-            const itemData = { code, name, category, costMaterial, costLabor, sellingPrice, stock };
-
-            if (idx === -1) {
-                inventoryList.push(itemData);
-            } else {
-                inventoryList[idx] = itemData;
-            }
-
-            saveInventoryToStorage();
-            renderInventoryTable();
-            closeProductModal();
-        }
-
-        function editProduct(index) {
-            const item = inventoryList[index];
-            document.getElementById('modal-product-title').innerText = "Edit Barang & HPP";
-            document.getElementById('form-product-index').value = index;
-            document.getElementById('form-code').value = item.code;
-            document.getElementById('form-name').value = item.name;
-            document.getElementById('form-category').value = item.category;
-            document.getElementById('form-cost-material').value = item.costMaterial;
-            document.getElementById('form-cost-labor').value = item.costLabor;
-            document.getElementById('form-price').value = item.sellingPrice;
-            document.getElementById('form-stock').value = item.stock;
-            calculateModalHpp();
-            document.getElementById('product-modal').classList.remove('hidden');
-        }
-
-        function deleteProduct(index) {
-            if (confirm(`Hapus barang ${inventoryList[index].name} dari master stok?`)) {
-                inventoryList.splice(index, 1);
-                saveInventoryToStorage();
-                renderInventoryTable();
-            }
-        }
-
-        function populatePosProductSelect() {
-            const select = document.getElementById('pos-product-select');
-            select.innerHTML = '<option value="">-- Pilih Barang --</option>';
-            inventoryList.forEach((item, idx) => {
-                const option = document.createElement('option');
-                option.value = idx;
-                option.innerText = `${item.name} (${item.code}) - Stok: ${item.stock}`;
-                select.appendChild(option);
-            });
-            document.getElementById('pos-item-details-card').classList.add('hidden');
-        }
-
-        function updatePosProductDetails() {
-            const idx = document.getElementById('pos-product-select').value;
-            if (idx === '') {
-                document.getElementById('pos-item-details-card').classList.add('hidden');
-                return;
-            }
-
-            const item = inventoryList[idx];
-            const totalHpp = item.costMaterial + item.costLabor;
-            const profit = item.sellingPrice - totalHpp;
-
-            document.getElementById('pos-stock-avail').innerText = `${item.stock} Unit`;
-            document.getElementById('pos-hpp-unit').innerText = `Rp ${totalHpp.toLocaleString('id-ID')}`;
-            document.getElementById('pos-price-unit').innerText = `Rp ${item.sellingPrice.toLocaleString('id-ID')}`;
-            document.getElementById('pos-profit-unit').innerText = `Rp ${profit.toLocaleString('id-ID')}`;
-
-            document.getElementById('pos-qty').value = 1;
-            document.getElementById('pos-qty').max = item.stock;
-            calculatePosSubtotal();
-
-            document.getElementById('pos-item-details-card').classList.remove('hidden');
-        }
-
-        function calculatePosSubtotal() {
-            const idx = document.getElementById('pos-product-select').value;
-            if (idx === '') return;
-            const item = inventoryList[idx];
-            const qty = parseInt(document.getElementById('pos-qty').value) || 0;
-            const revenue = qty * item.sellingPrice;
-            document.getElementById('pos-total-revenue').innerText = `Rp ${revenue.toLocaleString('id-ID')}`;
-        }
-
-        function processSalesTransaction() {
-            const idx = document.getElementById('pos-product-select').value;
-            const customer = document.getElementById('pos-customer-name').value.trim() || 'Pelanggan Umum';
-            const date = document.getElementById('pos-date').value || new Date().toISOString().split('T')[0];
-            const qty = parseInt(document.getElementById('pos-qty').value) || 0;
-
-            if (idx === '') { alert('Pilih produk!'); return; }
-            const item = inventoryList[idx];
-
-            if (qty <= 0) { alert('Jumlah unit terjual minimal 1!'); return; }
-            if (qty > item.stock) { alert(`Stok tidak mencukupi! Sisa stok hanya ${item.stock} unit.`); return; }
-
-            const totalHpp = (item.costMaterial + item.costLabor) * qty;
-            const totalOmzet = item.sellingPrice * qty;
-            const grossProfit = totalOmzet - totalHpp;
-
-            // Deduct Stock
-            item.stock -= qty;
-            saveInventoryToStorage();
-
-            // Record Sales
-            const tx = {
-                invoice: `INV-${Date.now().toString().slice(-6)}`,
-                date: date,
-                customer: customer,
-                itemCode: item.code,
-                itemName: item.name,
-                qty: qty,
-                omzet: totalOmzet,
-                hpp: totalHpp,
-                profit: grossProfit
-            };
-
-            salesTransactions.push(tx);
-            saveSalesToStorage();
-
-            // Show Receipt Modal
-            showReceipt(tx);
-
-            populatePosProductSelect();
-            updateDashboardKPIs();
+            XLSX.writeFile(wb, `Laporan_${currentStudent.classSection.replace(/\s+/g, '_')}_${currentStudent.name.replace(/\s+/g, '_')}.xlsx`);
         }
 
         function showReceipt(tx) {
             document.getElementById('receipt-company').innerText = currentStudent.company;
-            document.getElementById('receipt-student').innerText = `Kasir/Siswa: ${currentStudent.name}`;
+            document.getElementById('receipt-student').innerText = `Kasir/Siswa: ${currentStudent.name} (${currentStudent.classSection})`;
             document.getElementById('receipt-invoice').innerText = tx.invoice;
             document.getElementById('receipt-date').innerText = tx.date;
             document.getElementById('receipt-customer').innerText = tx.customer;
@@ -945,7 +777,6 @@
         }
 
         function renderFinancialCharts(omzet, hpp, profit) {
-            // Chart 1: Financial Overview Bar Chart with Light Theme Colors
             const ctx1 = document.getElementById('financialChart');
             if (ctx1) {
                 if (financialChart) financialChart.destroy();
@@ -971,7 +802,6 @@
                 });
             }
 
-            // Chart 2: Top Products Sold Pie/Doughnut with Fresh Colors
             const ctx2 = document.getElementById('topProductsChart');
             if (ctx2) {
                 if (topProductsChart) topProductsChart.destroy();
@@ -1007,12 +837,11 @@
 
             const wb = XLSX.utils.book_new();
 
-            // Sheet 1: Master Stok & HPP
             const invData = [
-                ["LAPORAN MASTER STOK BARANG & HPP"],
-                ["Siswa", currentStudent.name, "Kelas", currentStudent.grade, "Perusahaan", currentStudent.company],
+                ["SMK KREATIF INOVATIF KEWIRAUSAHAAN - LAPORAN MASTER STOK BARANG & HPP"],
+                ["Nama Siswa", currentStudent.name, "Kelas", currentStudent.grade],
                 [],
-                ["KODE", "NAMA BARANG", "KATEGORI", "BIAYA BAHAN/KULAKAN (RP)", "BIAYA OVERHEAD (RP)", "TOTAL HPP (RP)", "HARGA JUAL (RP)", "STOK TERSISA"]
+                ["KODE", "NAMA BARANG", "KATEGORI", "BIAYA BAHAN (RP)", "BIAYA OVERHEAD (RP)", "TOTAL HPP (RP)", "HARGA JUAL (RP)", "STOK TERSISA"]
             ];
 
             inventoryList.forEach(i => {
@@ -1023,9 +852,8 @@
             const wsInv = XLSX.utils.aoa_to_sheet(invData);
             XLSX.utils.book_append_sheet(wb, wsInv, "Master Stok & HPP");
 
-            // Sheet 2: Riwayat Penjualan
             const salesData = [
-                ["RIWAYAT TRANSAKSI PENJUALAN"],
+                ["SMK KREATIF INOVATIF KEWIRAUSAHAAN - RIWAYAT TRANSAKSI PENJUALAN"],
                 ["FAKTUR", "TANGGAL", "PEMBELI", "NAMA BARANG", "QTY", "TOTAL OMSET (RP)", "TOTAL HPP (RP)", "LABA KOTOR (RP)"]
             ];
 
@@ -1036,7 +864,7 @@
             const wsSales = XLSX.utils.aoa_to_sheet(salesData);
             XLSX.utils.book_append_sheet(wb, wsSales, "Laporan Penjualan");
 
-            XLSX.writeFile(wb, `Laporan_Stok_Penjualan_${currentStudent.grade}_${currentStudent.name.replace(/\s+/g, '_')}.xlsx`);
+            XLSX.writeFile(wb, `Laporan_Kewirausahaan_${currentStudent.grade}_${currentStudent.name.replace(/\s+/g, '_')}.xlsx`);
         }
 
         function importInventoryFromExcel(event) {
