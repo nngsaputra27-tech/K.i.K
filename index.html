@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SMK KREATIF INOVATIF KEWIRAUSAHAAN - Aplikasi Stok, Penjualan & HPP</title>
     <meta name="description" content="Aplikasi Manajemen Stok Barang, Penjualan (POS) dan Kalkulasi Harga Pokok Penjualan (HPP) untuk Praktik Kewirausahaan Siswa SMK.">
+    <meta name="keywords" content="Kewirausahaan SMK, PKK, HPP, POS Kasir, Manajemen Stok, Kurikulum Merdeka">
     <meta name="author" content="Mhd. Nanang Saputra, S.Pd., Gr.">
     
     <!-- Tailwind CSS -->
@@ -65,28 +66,28 @@
                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Pilih Perusahaan Simulasi</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <!-- Pilihan 1: Kelas XI -->
-                        <div id="cardCompany1" onclick="selectCompany('PT KREATIF FURNITUR', 'XI')" class="cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm">
+                        <label id="cardCompany1" onclick="selectCompany('PT KREATIF FURNITUR', 'XI')" class="cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-blue-600 shadow-sm">
                             <div class="flex items-center justify-between mb-2">
-                                <span id="badgeCompany1" class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full transition-all">Unit Usaha 1</span>
-                                <i id="checkIcon1" class="fa-solid fa-circle-check text-blue-600 text-lg"></i>
+                                <span id="badgeCompany1" class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 1</span>
+                                <i id="iconCompany1" class="fa-solid fa-circle-check text-blue-600 text-lg"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-blue-900 text-sm">PT KREATIF FURNITUR</h4>
                                 <p class="text-xs text-slate-500 mt-1">Furniture & Handcraft - Meja, Lemari, Tas Ransel</p>
                             </div>
-                        </div>
+                        </label>
 
                         <!-- Pilihan 2: Kelas XII -->
-                        <div id="cardCompany2" onclick="selectCompany('CV ELEKTRONIK INOVASI', 'XII')" class="cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-slate-300 shadow-sm">
+                        <label id="cardCompany2" onclick="selectCompany('CV ELEKTRONIK INOVASI', 'XII')" class="cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-slate-300 shadow-sm">
                             <div class="flex items-center justify-between mb-2">
-                                <span id="badgeCompany2" class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full transition-all">Unit Usaha 2</span>
-                                <i id="checkIcon2" class="fa-regular fa-circle text-slate-300 text-lg"></i>
+                                <span id="badgeCompany2" class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 2</span>
+                                <i id="iconCompany2" class="fa-regular fa-circle text-slate-300 text-lg"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-slate-800 text-sm">CV ELEKTRONIK INOVASI</h4>
                                 <p class="text-xs text-slate-500 mt-1">Elektronik & Appliances - Kipas Angin, Kulkas, Mesin Cuci</p>
                             </div>
-                        </div>
+                        </label>
                     </div>
                 </div>
 
@@ -107,7 +108,7 @@
                     <div class="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-600/20">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083 0 005.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083.016.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083.000 6.665 5.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
                         </svg>
                     </div>
                     <div>
@@ -251,7 +252,7 @@
 
                             <!-- Input Pembayaran -->
                             <div class="space-y-1.5 pt-2">
-                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Uang Diterima Pembeli</label>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Uang yang di terima:</label>
                                 <div class="relative">
                                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs font-bold">Rp</span>
                                     <input type="number" id="inputUangBayar" oninput="hitungKembalian()" placeholder="0" class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-600">
@@ -473,6 +474,7 @@
 
     <!-- SCRIPT UTAMA APLIKASI -->
     <script>
+        // Default Mock Data Berdasarkan Perusahaan
         const defaultStokData = {
             "PT KREATIF FURNITUR": [
                 { nama: "Meja Kayu Minimalis", kategori: "Furniture", bahan: 120000, overhead: 30000, hpp: 150000, margin: 33.33, hargaJual: 200000, stok: 15 },
@@ -504,8 +506,8 @@
                 if (!currentNama || !currentKelas) {
                     openLoginModal();
                 } else {
-                    loadDataPerusahaan();
                     closeLoginModal();
+                    loadDataStorage();
                     updateHeaderUI();
                     renderStokTable();
                     renderKatalogKasir();
@@ -513,95 +515,71 @@
                     updateLaporanStatistik();
                     initCharts();
                 }
-            } catch (err) {
-                console.error("Error pada window.onload:", err);
-                openLoginModal();
+            } catch(e) {
+                console.error("Init Error:", e);
             }
         };
 
-        function loadDataPerusahaan() {
+        function loadDataStorage() {
             try {
-                const storedStok = localStorage.getItem('smk_stok_' + currentCompany);
-                if (storedStok) {
-                    stokBarang = JSON.parse(storedStok);
-                } else {
-                    stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany] || defaultStokData["PT KREATIF FURNITUR"]));
-                    localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
-                }
-
-                const storedRiwayat = localStorage.getItem('smk_riwayat_' + currentCompany);
-                if (storedRiwayat) {
-                    riwayatTransaksi = JSON.parse(storedRiwayat);
-                } else {
-                    riwayatTransaksi = [];
-                }
-                keranjang = [];
-            } catch (e) {
-                console.error("Error loadDataPerusahaan:", e);
-                stokBarang = JSON.parse(JSON.stringify(defaultStokData["PT KREATIF FURNITUR"]));
+                stokBarang = JSON.parse(localStorage.getItem('smk_stok_' + currentCompany)) || JSON.parse(JSON.stringify(defaultStokData[currentCompany] || []));
+                riwayatTransaksi = JSON.parse(localStorage.getItem('smk_riwayat_' + currentCompany)) || [];
+            } catch(e) {
+                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany] || []));
                 riwayatTransaksi = [];
-                keranjang = [];
             }
         }
 
         function openLoginModal() {
-            document.getElementById('inputNama').value = currentNama;
-            document.getElementById('inputKelas').value = currentKelas;
-            selectCompany(currentCompany || 'PT KREATIF FURNITUR', currentCompany === 'CV ELEKTRONIK INOVASI' ? 'XII' : 'XI');
-            document.getElementById('loginModal').classList.remove('hidden');
-            document.getElementById('appContainer').classList.add('hidden');
+            try {
+                document.getElementById('inputNama').value = currentNama;
+                document.getElementById('inputKelas').value = currentKelas;
+                selectCompany(currentCompany, currentCompany === 'PT KREATIF FURNITUR' ? '1' : '2');
+                document.getElementById('loginModal').classList.remove('hidden');
+            } catch(e) { console.error(e); }
         }
 
         function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('hidden');
-            document.getElementById('appContainer').classList.remove('hidden');
+            try {
+                document.getElementById('loginModal').classList.add('hidden');
+            } catch(e) { console.error(e); }
         }
 
         function selectCompany(companyName, type) {
             currentCompany = companyName;
-            const card1 = document.getElementById('cardCompany1');
-            const card2 = document.getElementById('cardCompany2');
-            const icon1 = document.getElementById('checkIcon1');
-            const icon2 = document.getElementById('checkIcon2');
-            const badge1 = document.getElementById('badgeCompany1');
-            const badge2 = document.getElementById('badgeCompany2');
+            const c1 = document.getElementById('cardCompany1');
+            const c2 = document.getElementById('cardCompany2');
+            const b1 = document.getElementById('badgeCompany1');
+            const b2 = document.getElementById('badgeCompany2');
+            const i1 = document.getElementById('iconCompany1');
+            const i2 = document.getElementById('iconCompany2');
 
-            if (!card1 || !card2 || !icon1 || !icon2 || !badge1 || !badge2) return;
-
-            if (type === '1' || type === 'XI' || companyName === 'PT KREATIF FURNITUR') {
-                // Unit Usaha 1 Active
-                card1.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
-                badge1.className = "bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
-                icon1.className = "fa-solid fa-circle-check text-blue-600 text-lg";
+            if (type === '1' || type === 'XI' || type === 'PT KREATIF FURNITUR') {
+                if(c1) c1.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                if(b1) { b1.className = "bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"; }
+                if(i1) { i1.className = "fa-solid fa-circle-check text-blue-600 text-lg"; }
                 
-                // Unit Usaha 2 Inactive
-                card2.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
-                badge2.className = "bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
-                icon2.className = "fa-regular fa-circle text-slate-300 text-lg";
+                if(c2) c2.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                if(b2) { b2.className = "bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full"; }
+                if(i2) { i2.className = "fa-regular fa-circle text-slate-300 text-lg"; }
             } else {
-                // Unit Usaha 2 Active
-                card2.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
-                badge2.className = "bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
-                icon2.className = "fa-solid fa-circle-check text-blue-600 text-lg";
+                if(c2) c2.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                if(b2) { b2.className = "bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"; }
+                if(i2) { i2.className = "fa-solid fa-circle-check text-blue-600 text-lg"; }
                 
-                // Unit Usaha 1 Inactive
-                card1.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
-                badge1.className = "bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full transition-all";
-                icon1.className = "fa-regular fa-circle text-slate-300 text-lg";
+                if(c1) c1.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                if(b1) { b1.className = "bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full"; }
+                if(i1) { i1.className = "fa-regular fa-circle text-slate-300 text-lg"; }
             }
         }
 
         function saveProfile() {
-            const namaEl = document.getElementById('inputNama');
-            const kelasEl = document.getElementById('inputKelas');
-            const nama = namaEl ? namaEl.value.trim() : "";
-            const kelas = kelasEl ? kelasEl.value.trim() : "";
-
+            const nama = document.getElementById('inputNama').value.trim();
+            const kelas = document.getElementById('inputKelas').value.trim();
             if (!nama || !kelas) {
                 alert("Mohon isi Nama Lengkap dan Kelas Siswa terlebih dahulu!");
                 return;
             }
-
             currentNama = nama;
             currentKelas = kelas;
             
@@ -609,65 +587,64 @@
             localStorage.setItem('smk_kelas', currentKelas);
             localStorage.setItem('smk_company', currentCompany);
 
-            loadDataPerusahaan();
+            loadDataStorage();
+            if (!localStorage.getItem('smk_stok_' + currentCompany)) {
+                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany]));
+                localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
+            }
+            riwayatTransaksi = JSON.parse(localStorage.getItem('smk_riwayat_' + currentCompany)) || [];
+            keranjang = [];
+
             closeLoginModal();
             updateHeaderUI();
-            switchTab('stok');
+            renderStokTable();
+            renderKatalogKasir();
+            renderRiwayatTable();
+            updateLaporanStatistik();
+            initCharts();
+            document.getElementById('appContainer').classList.remove('hidden');
         }
 
         function updateHeaderUI() {
-            const dispNama = document.getElementById('displayNama');
-            const dispKelasComp = document.getElementById('displayKelasCompany');
-            const headerSub = document.getElementById('headerSub');
-
-            if (dispNama) dispNama.innerText = currentNama;
-            if (dispKelasComp) dispKelasComp.innerText = `${currentKelas} • ${currentCompany}`;
-            if (headerSub) headerSub.innerText = `${currentCompany} • ${currentNama} (${currentKelas})`;
+            try {
+                document.getElementById('displayNama').innerText = currentNama;
+                document.getElementById('displayKelasCompany').innerText = `${currentKelas} • ${currentCompany}`;
+                document.getElementById('headerSub').innerText = `${currentCompany} • ${currentNama} (${currentKelas})`;
+                document.getElementById('appContainer').classList.remove('hidden');
+            } catch(e) { console.error(e); }
         }
 
         function switchTab(tabId) {
-            const tabStok = document.getElementById('tabStok');
-            const tabKasir = document.getElementById('tabKasir');
-            const tabLaporan = document.getElementById('tabLaporan');
+            try {
+                document.getElementById('tabStok').classList.add('hidden');
+                document.getElementById('tabKasir').classList.add('hidden');
+                document.getElementById('tabLaporan').classList.add('hidden');
 
-            const btnStok = document.getElementById('tabBtnStok');
-            const btnKasir = document.getElementById('tabBtnKasir');
-            const btnLaporan = document.getElementById('tabBtnLaporan');
+                document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+                document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+                document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
 
-            if (!tabStok || !tabKasir || !tabLaporan) return;
-
-            tabStok.classList.add('hidden');
-            tabKasir.classList.add('hidden');
-            tabLaporan.classList.add('hidden');
-
-            const inactiveClass = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
-            const activeClass = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
-
-            if (btnStok) btnStok.className = inactiveClass;
-            if (btnKasir) btnKasir.className = inactiveClass;
-            if (btnLaporan) btnLaporan.className = inactiveClass;
-
-            if (tabId === 'stok') {
-                tabStok.classList.remove('hidden');
-                if (btnStok) btnStok.className = activeClass;
-                renderStokTable();
-            } else if (tabId === 'kasir') {
-                tabKasir.classList.remove('hidden');
-                if (btnKasir) btnKasir.className = activeClass;
-                renderKatalogKasir();
-                renderKeranjang();
-                renderRiwayatTable();
-            } else if (tabId === 'laporan') {
-                tabLaporan.classList.remove('hidden');
-                if (btnLaporan) btnLaporan.className = activeClass;
-                updateLaporanStatistik();
-                initCharts();
-            }
+                if (tabId === 'stok') {
+                    document.getElementById('tabStok').classList.remove('hidden');
+                    document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+                    renderStokTable();
+                } else if (tabId === 'kasir') {
+                    document.getElementById('tabKasir').classList.remove('hidden');
+                    document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+                    renderKatalogKasir();
+                } else if (tabId === 'laporan') {
+                    document.getElementById('tabLaporan').classList.remove('hidden');
+                    document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+                    updateLaporanStatistik();
+                    initCharts();
+                }
+            } catch(e) { console.error(e); }
         }
 
+        // --- MANAJEMEN STOK & HPP ---
         function renderStokTable() {
             const tbody = document.getElementById('tabelStokBody');
-            if (!tbody) return;
+            if(!tbody) return;
             tbody.innerHTML = "";
             if (!stokBarang || stokBarang.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-400 text-xs">Belum ada data barang. Silakan tambah barang baru.</td></tr>`;
@@ -696,6 +673,13 @@
             });
         }
 
+        function escapeHtml(str) {
+            if(!str) return '';
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
         function openAddProductModal() {
             document.getElementById('modalProdukTitle').innerText = "Tambah Produk & HPP";
             document.getElementById('editIndex').value = -1;
@@ -712,7 +696,7 @@
 
         function editProduk(index) {
             const item = stokBarang[index];
-            if (!item) return;
+            if(!item) return;
             document.getElementById('modalProdukTitle').innerText = "Edit Produk & HPP";
             document.getElementById('editIndex').value = index;
             document.getElementById('prodNama').value = item.nama;
@@ -783,16 +767,17 @@
 
         function resetDefaultStok() {
             if (confirm("Muat ulang daftar produk bawaan awal untuk perusahaan ini?")) {
-                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany] || defaultStokData["PT KREATIF FURNITUR"]));
+                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany]));
                 localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
                 renderStokTable();
                 renderKatalogKasir();
             }
         }
 
+        // --- KASIR & PENJUALAN (POS) ---
         function renderKatalogKasir() {
             const grid = document.getElementById('katalogKasirGrid');
-            if (!grid) return;
+            if(!grid) return;
             grid.innerHTML = "";
             if (!stokBarang || stokBarang.length === 0) {
                 grid.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-6">Belum ada produk dalam stok.</p>`;
@@ -806,7 +791,7 @@
                     <div>
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">${escapeHtml(item.kategori)}</span>
-                            <span class="text-xs font-bold ${item.stok <= 3 ? 'text-red-500' : 'text-slate-500'}">Stok: ${item.stok}</span>
+                            <span class="text-xs font-bold ${(item.stok || 0) <= 3 ? 'text-red-500' : 'text-slate-500'}">Stok: ${item.stok || 0}</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm mb-1">${escapeHtml(item.nama)}</h4>
                         <div class="text-xs text-slate-500 space-y-0.5">
@@ -826,8 +811,7 @@
 
         function tambahKeKeranjang(index) {
             const produk = stokBarang[index];
-            if (!produk) return;
-            if (produk.stok <= 0) {
+            if (!produk || produk.stok <= 0) {
                 alert("Stok barang ini sudah habis!");
                 return;
             }
@@ -852,9 +836,9 @@
 
         function renderKeranjang() {
             const listContainer = document.getElementById('keranjangItemList');
-            if (!listContainer) return;
+            if(!listContainer) return;
             listContainer.innerHTML = "";
-            if (!keranjang || keranjang.length === 0) {
+            if (keranjang.length === 0) {
                 listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Keranjang masih kosong. Silakan pilih produk dari katalog.</p>`;
                 document.getElementById('summaryTotalItem').innerText = "0 pcs";
                 document.getElementById('summaryTotalHarga').innerText = "Rp 0";
@@ -891,11 +875,8 @@
 
         function ubahQtyKeranjang(idx, delta) {
             const item = keranjang[idx];
-            if (!item) return;
-            const produkAsli = stokBarang[item.index];
-            const stokTersedia = produkAsli ? produkAsli.stok : 0;
+            const stokTersedia = stokBarang[item.index].stok;
             const newQty = item.qty + delta;
-
             if (newQty > stokTersedia) {
                 alert("Jumlah melebihi sisa stok!");
                 return;
@@ -911,20 +892,16 @@
         function clearKeranjang() {
             keranjang = [];
             renderKeranjang();
-            const inputBayar = document.getElementById('inputUangBayar');
-            if (inputBayar) inputBayar.value = "";
-            const lbl = document.getElementById('labelKembalian');
-            if (lbl) lbl.innerText = "Rp 0";
+            document.getElementById('inputUangBayar').value = "";
+            document.getElementById('labelKembalian').innerText = "Rp 0";
         }
 
         function hitungKembalian() {
             const totalHarga = keranjang.reduce((sum, item) => sum + (item.hargaJual * item.qty), 0);
-            const inputBayar = document.getElementById('inputUangBayar');
-            const uangBayar = inputBayar ? (parseFloat(inputBayar.value) || 0) : 0;
+            const uangBayar = parseFloat(document.getElementById('inputUangBayar').value) || 0;
             const kembalian = uangBayar - totalHarga;
             const lbl = document.getElementById('labelKembalian');
-            if (!lbl) return;
-
+            if(!lbl) return;
             if (kembalian >= 0) {
                 lbl.innerText = "Rp " + kembalian.toLocaleString('id-ID');
                 lbl.className = "text-emerald-600";
@@ -935,28 +912,22 @@
         }
 
         function prosesCheckout() {
-            if (!keranjang || keranjang.length === 0) {
+            if (keranjang.length === 0) {
                 alert("Keranjang belanja masih kosong!");
                 return;
             }
             const totalHarga = keranjang.reduce((sum, item) => sum + (item.hargaJual * item.qty), 0);
-            const inputBayar = document.getElementById('inputUangBayar');
-            const uangBayar = inputBayar ? (parseFloat(inputBayar.value) || 0) : 0;
-
+            const uangBayar = parseFloat(document.getElementById('inputUangBayar').value) || 0;
             if (uangBayar < totalHarga) {
                 alert("Uang pembayaran kurang dari total belanja!");
                 return;
             }
 
-            // Kurangi Stok Asli
             keranjang.forEach(item => {
-                if (stokBarang[item.index]) {
-                    stokBarang[item.index].stok -= item.qty;
-                }
+                stokBarang[item.index].stok -= item.qty;
             });
             localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
 
-            // Buat Catatan Transaksi
             const totalHppTransaksi = keranjang.reduce((sum, item) => sum + (item.hpp * item.qty), 0);
             const labaKotor = totalHarga - totalHppTransaksi;
             const noFaktur = "INV-" + Math.floor(100000 + Math.random() * 900000);
@@ -976,10 +947,8 @@
             riwayatTransaksi.unshift(transaksiBaru);
             localStorage.setItem('smk_riwayat_' + currentCompany, JSON.stringify(riwayatTransaksi));
 
-            // Tampilkan Struk
             tampilkanStrukModal(transaksiBaru);
 
-            // Reset
             keranjang = [];
             renderKeranjang();
             renderStokTable();
@@ -1016,7 +985,7 @@
 
         function renderRiwayatTable() {
             const tbody = document.getElementById('tabelRiwayatBody');
-            if (!tbody) return;
+            if(!tbody) return;
             tbody.innerHTML = "";
             if (!riwayatTransaksi || riwayatTransaksi.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400 text-xs">Belum ada riwayat transaksi penjualan.</td></tr>`;
@@ -1027,8 +996,8 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition-colors border-b border-slate-100 text-xs sm:text-sm";
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-blue-600">${escapeHtml(trx.noFaktur)}</td>
-                    <td class="py-3 px-4 text-slate-500">${escapeHtml(trx.waktu)}</td>
+                    <td class="py-3 px-4 font-bold text-blue-600">${trx.noFaktur}</td>
+                    <td class="py-3 px-4 text-slate-500">${trx.waktu}</td>
                     <td class="py-3 px-4 text-slate-700 truncate max-w-xs">${escapeHtml(detailStr)}</td>
                     <td class="py-3 px-4 text-right font-bold text-slate-900">Rp ${trx.totalHarga.toLocaleString('id-ID')}</td>
                     <td class="py-3 px-4 text-right text-slate-600">Rp ${trx.totalHpp.toLocaleString('id-ID')}</td>
@@ -1061,6 +1030,7 @@
             }
         }
 
+        // --- LAPORAN & STATISTIK ---
         function updateLaporanStatistik() {
             const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
@@ -1072,10 +1042,10 @@
             const elLaba = document.getElementById('statLaba');
             const elValuasi = document.getElementById('statValuasi');
 
-            if (elOmset) elOmset.innerText = "Rp " + totalOmset.toLocaleString('id-ID');
-            if (elHpp) elHpp.innerText = "Rp " + totalHppTerjual.toLocaleString('id-ID');
-            if (elLaba) elLaba.innerText = "Rp " + totalLaba.toLocaleString('id-ID');
-            if (elValuasi) elValuasi.innerText = "Rp " + valuasiSisaStok.toLocaleString('id-ID');
+            if(elOmset) elOmset.innerText = "Rp " + totalOmset.toLocaleString('id-ID');
+            if(elHpp) elHpp.innerText = "Rp " + totalHppTerjual.toLocaleString('id-ID');
+            if(elLaba) elLaba.innerText = "Rp " + totalLaba.toLocaleString('id-ID');
+            if(elValuasi) elValuasi.innerText = "Rp " + valuasiSisaStok.toLocaleString('id-ID');
         }
 
         function initCharts() {
@@ -1083,7 +1053,6 @@
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
             const totalLaba = totalOmset - totalHppTerjual;
 
-            // Chart Keuangan
             const canvasKeuangan = document.getElementById('chartKeuangan');
             if (canvasKeuangan) {
                 const ctxKeuangan = canvasKeuangan.getContext('2d');
@@ -1107,7 +1076,6 @@
                 });
             }
 
-            // Chart Stok
             const canvasStok = document.getElementById('chartStok');
             if (canvasStok) {
                 const ctxStok = canvasStok.getContext('2d');
@@ -1130,6 +1098,7 @@
             }
         }
 
+        // --- EXPORT & IMPORT EXCEL (.xlsx) ---
         function exportExcelStok() {
             const wb = XLSX.utils.book_new();
 
@@ -1206,16 +1175,6 @@
                 }
             };
             reader.readAsArrayBuffer(file);
-        }
-
-        function escapeHtml(text) {
-            if (!text) return "";
-            return text.toString()
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
         }
     </script>
 </body>
