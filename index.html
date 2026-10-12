@@ -16,12 +16,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- SheetJS (xlsx) -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <!-- html2pdf.js untuk direct download PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        @media print {
+            body * { visibility: hidden; }
+            #printableArea, #printableArea * { visibility: visible; }
+            #printableArea { position: absolute; left: 0; top: 0; width: 100%; border: none !important; padding: 0 !important; }
+        }
     </style>
 </head>
 <body class="bg-blue-50/50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
@@ -1108,7 +1111,7 @@
             }
         }
 
-        // --- PREVIEW & DIRECT DOWNLOAD PDF (MENGGUNAKAN html2pdf.js) ---
+        // --- PREVIEW & DOWNLOAD / CETAK PDF YANG STABIL DAN AMAN ---
         function openPdfModal() {
             const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
@@ -1223,23 +1226,8 @@
         }
 
         function downloadPdfFile() {
-            const element = document.getElementById('printableArea');
-            if (!element) return;
-
-            const opt = {
-                margin:       10,
-                filename:     `Laporan_Kewirausahaan_${currentNama.replace(/\s+/g, '_')}_${currentCompany.replace(/\s+/g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: false },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().from(element).set(opt).save().then(() => {
-                // Berhasil mendownload langsung ke folder unduhan browser
-            }).catch(err => {
-                console.error("Gagal mendownload PDF:", err);
-                alert("Terjadi kesalahan saat mengunduh PDF.");
-            });
+            // Langsung memanggil fungsi cetak browser untuk menyimpan file sebagai PDF
+            window.print();
         }
 
         function exportExcelStok() {
@@ -1313,7 +1301,7 @@
                     }
                 } catch (err) {
                     console.error(err);
-                    alert("Gagal membaca file Excel. Pastikan format file benar.");
+                    alert("Gagal membaca file Excel. Pastikan file benar.");
                 }
             };
             reader.readAsArrayBuffer(file);
