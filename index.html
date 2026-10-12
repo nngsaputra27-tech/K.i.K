@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SMK KREATIF INOVATIF KEWIRAUSAHAAN - Aplikasi Stok, Penjualan & HPP</title>
     <meta name="description" content="Aplikasi Manajemen Stok Barang, Penjualan (POS) dan Kalkulasi Harga Pokok Penjualan (HPP) untuk Praktik Kewirausahaan Siswa SMK.">
-    <meta name="keywords" content="Kewirausahaan SMK, PKK, HPP, POS Kasir, Manajemen Stok, Kurikulum Merdeka">
     <meta name="author" content="Mhd. Nanang Saputra, S.Pd., Gr.">
     
     <!-- Tailwind CSS -->
@@ -33,7 +32,7 @@
                 <div class="mx-auto w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-3 border border-white/20 shadow-inner">
                     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0.016.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083 0.000 6.665 5.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083 0 005.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
                     </svg>
                 </div>
                 <h2 class="text-xl sm:text-2xl font-bold tracking-tight">SMK KREATIF INOVATIF KEWIRAUSAHAAN</h2>
@@ -66,28 +65,28 @@
                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Pilih Perusahaan Simulasi</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <!-- Pilihan 1: Kelas XI -->
-                        <label id="cardCompany1" onclick="selectCompany('PT KREATIF FURNITUR', 'XI')" class="cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-blue-600 shadow-sm">
+                        <div id="cardCompany1" onclick="selectCompany('PT KREATIF FURNITUR', 'XI')" class="cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm">
                             <div class="flex items-center justify-between mb-2">
                                 <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 1</span>
-                                <i class="fa-solid fa-circle-check text-blue-600 text-lg check-icon-1"></i>
+                                <i id="checkIcon1" class="fa-solid fa-circle-check text-blue-600 text-lg"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-blue-900 text-sm">PT KREATIF FURNITUR</h4>
                                 <p class="text-xs text-slate-500 mt-1">Furniture & Handcraft - Meja, Lemari, Tas Ransel</p>
                             </div>
-                        </label>
+                        </div>
 
                         <!-- Pilihan 2: Kelas XII -->
-                        <label id="cardCompany2" onclick="selectCompany('CV ELEKTRONIK INOVASI', 'XII')" class="cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-slate-300 shadow-sm">
+                        <div id="cardCompany2" onclick="selectCompany('CV ELEKTRONIK INOVASI', 'XII')" class="cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-slate-300 shadow-sm">
                             <div class="flex items-center justify-between mb-2">
                                 <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 2</span>
-                                <i class="fa-regular fa-circle text-slate-300 text-lg check-icon-2"></i>
+                                <i id="checkIcon2" class="fa-regular fa-circle text-slate-300 text-lg"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-slate-800 text-sm">CV ELEKTRONIK INOVASI</h4>
                                 <p class="text-xs text-slate-500 mt-1">Elektronik & Appliances - Kipas Angin, Kulkas, Mesin Cuci</p>
                             </div>
-                        </label>
+                        </div>
                     </div>
                 </div>
 
@@ -493,61 +492,107 @@
         let currentKelas = localStorage.getItem('smk_kelas') || "";
         let currentCompany = localStorage.getItem('smk_company') || "PT KREATIF FURNITUR";
         
-        let stokBarang = JSON.parse(localStorage.getItem('smk_stok_' + currentCompany)) || defaultStokData[currentCompany];
+        let stokBarang = [];
         let keranjang = [];
-        let riwayatTransaksi = JSON.parse(localStorage.getItem('smk_riwayat_' + currentCompany)) || [];
+        let riwayatTransaksi = [];
 
         let chartKeuanganInstance = null;
         let chartStokInstance = null;
 
         // Inisialisasi Saat Halaman Dimuat
         window.onload = function() {
-            if (!currentNama || !currentKelas) {
+            try {
+                if (!currentNama || !currentKelas) {
+                    openLoginModal();
+                } else {
+                    loadDataPerusahaan();
+                    closeLoginModal();
+                    updateHeaderUI();
+                    renderStokTable();
+                    renderKatalogKasir();
+                    renderRiwayatTable();
+                    updateLaporanStatistik();
+                    initCharts();
+                }
+            } catch (err) {
+                console.error("Error pada window.onload:", err);
                 openLoginModal();
-            } else {
-                closeLoginModal();
-                updateHeaderUI();
-                renderStokTable();
-                renderKatalogKasir();
-                renderRiwayatTable();
-                updateLaporanStatistik();
-                initCharts();
             }
         };
+
+        function loadDataPerusahaan() {
+            try {
+                const storedStok = localStorage.getItem('smk_stok_' + currentCompany);
+                if (storedStok) {
+                    stokBarang = JSON.parse(storedStok);
+                } else {
+                    stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany] || defaultStokData["PT KREATIF FURNITUR"]));
+                    localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
+                }
+
+                const storedRiwayat = localStorage.getItem('smk_riwayat_' + currentCompany);
+                if (storedRiwayat) {
+                    riwayatTransaksi = JSON.parse(storedRiwayat);
+                } else {
+                    riwayatTransaksi = [];
+                }
+                keranjang = [];
+            } catch (e) {
+                console.error("Error loadDataPerusahaan:", e);
+                stokBarang = JSON.parse(JSON.stringify(defaultStokData["PT KREATIF FURNITUR"]));
+                riwayatTransaksi = [];
+                keranjang = [];
+            }
+        }
 
         function openLoginModal() {
             document.getElementById('inputNama').value = currentNama;
             document.getElementById('inputKelas').value = currentKelas;
-            selectCompany(currentCompany, currentCompany === 'PT KREATIF FURNITUR' ? '1' : '2');
+            selectCompany(currentCompany || 'PT KREATIF FURNITUR', currentCompany === 'CV ELEKTRONIK INOVASI' ? 'XII' : 'XI');
             document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('appContainer').classList.add('hidden');
         }
 
         function closeLoginModal() {
             document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('appContainer').classList.remove('hidden');
         }
 
         function selectCompany(companyName, type) {
             currentCompany = companyName;
-            if (type === '1' || type === 'XI') {
-                document.getElementById('cardCompany1').className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
-                document.getElementById('cardCompany1').querySelector('.fa-circle-check').className = "fa-solid fa-circle-check text-blue-600 text-lg";
-                document.getElementById('cardCompany2').className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
-                document.getElementById('cardCompany2').querySelector('.fa-regular,.fa-solid').className = "fa-regular fa-circle text-slate-300 text-lg";
+            const card1 = document.getElementById('cardCompany1');
+            const card2 = document.getElementById('cardCompany2');
+            const icon1 = document.getElementById('checkIcon1');
+            const icon2 = document.getElementById('checkIcon2');
+
+            if (!card1 || !card2 || !icon1 || !icon2) return;
+
+            if (type === '1' || type === 'XI' || companyName === 'PT KREATIF FURNITUR') {
+                card1.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                icon1.className = "fa-solid fa-circle-check text-blue-600 text-lg";
+                
+                card2.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                icon2.className = "fa-regular fa-circle text-slate-300 text-lg";
             } else {
-                document.getElementById('cardCompany2').className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
-                document.getElementById('cardCompany2').querySelector('.fa-regular,.fa-solid').className = "fa-solid fa-circle-check text-blue-600 text-lg";
-                document.getElementById('cardCompany1').className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
-                document.getElementById('cardCompany1').querySelector('.fa-circle-check').className = "fa-regular fa-circle text-slate-300 text-lg";
+                card2.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                icon2.className = "fa-solid fa-circle-check text-blue-600 text-lg";
+                
+                card1.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                icon1.className = "fa-regular fa-circle text-slate-300 text-lg";
             }
         }
 
         function saveProfile() {
-            const nama = document.getElementById('inputNama').value.trim();
-            const kelas = document.getElementById('inputKelas').value.trim();
+            const namaEl = document.getElementById('inputNama');
+            const kelasEl = document.getElementById('inputKelas');
+            const nama = namaEl ? namaEl.value.trim() : "";
+            const kelas = kelasEl ? kelasEl.value.trim() : "";
+
             if (!nama || !kelas) {
                 alert("Mohon isi Nama Lengkap dan Kelas Siswa terlebih dahulu!");
                 return;
             }
+
             currentNama = nama;
             currentKelas = kelas;
             
@@ -555,51 +600,57 @@
             localStorage.setItem('smk_kelas', currentKelas);
             localStorage.setItem('smk_company', currentCompany);
 
-            // Muat ulang stok berdasarkan perusahaan jika belum ada
-            if (!localStorage.getItem('smk_stok_' + currentCompany)) {
-                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany]));
-                localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
-            } else {
-                stokBarang = JSON.parse(localStorage.getItem('smk_stok_' + currentCompany));
-            }
-            riwayatTransaksi = JSON.parse(localStorage.getItem('smk_riwayat_' + currentCompany)) || [];
-            keranjang = [];
-
+            loadDataPerusahaan();
             closeLoginModal();
             updateHeaderUI();
-            renderStokTable();
-            renderKatalogKasir();
-            renderRiwayatTable();
-            updateLaporanStatistik();
-            initCharts();
+            switchTab('stok');
         }
 
         function updateHeaderUI() {
-            document.getElementById('displayNama').innerText = currentNama;
-            document.getElementById('displayKelasCompany').innerText = `${currentKelas} • ${currentCompany}`;
-            document.getElementById('headerSub').innerText = `${currentCompany} • ${currentNama} (${currentKelas})`;
+            const dispNama = document.getElementById('displayNama');
+            const dispKelasComp = document.getElementById('displayKelasCompany');
+            const headerSub = document.getElementById('headerSub');
+
+            if (dispNama) dispNama.innerText = currentNama;
+            if (dispKelasComp) dispKelasComp.innerText = `${currentKelas} • ${currentCompany}`;
+            if (headerSub) headerSub.innerText = `${currentCompany} • ${currentNama} (${currentKelas})`;
         }
 
         function switchTab(tabId) {
-            document.getElementById('tabStok').classList.add('hidden');
-            document.getElementById('tabKasir').classList.add('hidden');
-            document.getElementById('tabLaporan').classList.add('hidden');
+            const tabStok = document.getElementById('tabStok');
+            const tabKasir = document.getElementById('tabKasir');
+            const tabLaporan = document.getElementById('tabLaporan');
 
-            document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
-            document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
-            document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+            const btnStok = document.getElementById('tabBtnStok');
+            const btnKasir = document.getElementById('tabBtnKasir');
+            const btnLaporan = document.getElementById('tabBtnLaporan');
+
+            if (!tabStok || !tabKasir || !tabLaporan) return;
+
+            tabStok.classList.add('hidden');
+            tabKasir.classList.add('hidden');
+            tabLaporan.classList.add('hidden');
+
+            const inactiveClass = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+            const activeClass = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+
+            if (btnStok) btnStok.className = inactiveClass;
+            if (btnKasir) btnKasir.className = inactiveClass;
+            if (btnLaporan) btnLaporan.className = inactiveClass;
 
             if (tabId === 'stok') {
-                document.getElementById('tabStok').classList.remove('hidden');
-                document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+                tabStok.classList.remove('hidden');
+                if (btnStok) btnStok.className = activeClass;
                 renderStokTable();
             } else if (tabId === 'kasir') {
-                document.getElementById('tabKasir').classList.remove('hidden');
-                document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+                tabKasir.classList.remove('hidden');
+                if (btnKasir) btnKasir.className = activeClass;
                 renderKatalogKasir();
+                renderKeranjang();
+                renderRiwayatTable();
             } else if (tabId === 'laporan') {
-                document.getElementById('tabLaporan').classList.remove('hidden');
-                document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
+                tabLaporan.classList.remove('hidden');
+                if (btnLaporan) btnLaporan.className = activeClass;
                 updateLaporanStatistik();
                 initCharts();
             }
@@ -608,8 +659,9 @@
         // --- MANAJEMEN STOK & HPP ---
         function renderStokTable() {
             const tbody = document.getElementById('tabelStokBody');
+            if (!tbody) return;
             tbody.innerHTML = "";
-            if (stokBarang.length === 0) {
+            if (!stokBarang || stokBarang.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-400 text-xs">Belum ada data barang. Silakan tambah barang baru.</td></tr>`;
                 return;
             }
@@ -617,14 +669,14 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition-colors border-b border-slate-100 text-xs sm:text-sm";
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-slate-900">${item.nama}</td>
-                    <td class="py-3 px-4 text-slate-600"><span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md text-xs font-semibold">${item.kategori}</span></td>
-                    <td class="py-3 px-4 text-right text-slate-600">Rp ${item.bahan.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right text-slate-600">Rp ${item.overhead.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right font-bold text-blue-600">Rp ${item.hpp.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right font-bold text-emerald-600">Rp ${item.hargaJual.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-center"><span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">${item.margin}%</span></td>
-                    <td class="py-3 px-4 text-center font-bold ${item.stok <= 3 ? 'text-red-500' : 'text-slate-800'}">${item.stok} pcs</td>
+                    <td class="py-3 px-4 font-bold text-slate-900">${escapeHtml(item.nama)}</td>
+                    <td class="py-3 px-4 text-slate-600"><span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md text-xs font-semibold">${escapeHtml(item.kategori)}</span></td>
+                    <td class="py-3 px-4 text-right text-slate-600">Rp ${(item.bahan || 0).toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-4 text-right text-slate-600">Rp ${(item.overhead || 0).toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-600">Rp ${(item.hpp || 0).toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-4 text-right font-bold text-emerald-600">Rp ${(item.hargaJual || 0).toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-4 text-center"><span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">${item.margin || 0}%</span></td>
+                    <td class="py-3 px-4 text-center font-bold ${(item.stok || 0) <= 3 ? 'text-red-500' : 'text-slate-800'}">${item.stok || 0} pcs</td>
                     <td class="py-3 px-4 text-center">
                         <div class="flex items-center justify-center gap-1.5">
                             <button onclick="editProduk(${index})" title="Edit" class="p-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"><i class="fa-solid fa-pen"></i></button>
@@ -652,6 +704,7 @@
 
         function editProduk(index) {
             const item = stokBarang[index];
+            if (!item) return;
             document.getElementById('modalProdukTitle').innerText = "Edit Produk & HPP";
             document.getElementById('editIndex').value = index;
             document.getElementById('prodNama').value = item.nama;
@@ -722,7 +775,7 @@
 
         function resetDefaultStok() {
             if (confirm("Muat ulang daftar produk bawaan awal untuk perusahaan ini?")) {
-                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany]));
+                stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany] || defaultStokData["PT KREATIF FURNITUR"]));
                 localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
                 renderStokTable();
                 renderKatalogKasir();
@@ -732,8 +785,9 @@
         // --- KASIR & PENJUALAN (POS) ---
         function renderKatalogKasir() {
             const grid = document.getElementById('katalogKasirGrid');
+            if (!grid) return;
             grid.innerHTML = "";
-            if (stokBarang.length === 0) {
+            if (!stokBarang || stokBarang.length === 0) {
                 grid.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-6">Belum ada produk dalam stok.</p>`;
                 return;
             }
@@ -744,16 +798,16 @@
                 card.innerHTML = `
                     <div>
                         <div class="flex justify-between items-start mb-2">
-                            <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">${item.kategori}</span>
+                            <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">${escapeHtml(item.kategori)}</span>
                             <span class="text-xs font-bold ${item.stok <= 3 ? 'text-red-500' : 'text-slate-500'}">Stok: ${item.stok}</span>
                         </div>
-                        <h4 class="font-bold text-slate-900 text-sm mb-1">${item.nama}</h4>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">${escapeHtml(item.nama)}</h4>
                         <div class="text-xs text-slate-500 space-y-0.5">
-                            <div>HPP: Rp ${item.hpp.toLocaleString('id-ID')}</div>
+                            <div>HPP: Rp ${(item.hpp || 0).toLocaleString('id-ID')}</div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-                        <span class="font-bold text-emerald-600 text-sm">Rp ${item.hargaJual.toLocaleString('id-ID')}</span>
+                        <span class="font-bold text-emerald-600 text-sm">Rp ${(item.hargaJual || 0).toLocaleString('id-ID')}</span>
                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold shadow-sm flex items-center gap-1">
                             <i class="fa-solid fa-plus"></i> Beli
                         </button>
@@ -765,6 +819,7 @@
 
         function tambahKeKeranjang(index) {
             const produk = stokBarang[index];
+            if (!produk) return;
             if (produk.stok <= 0) {
                 alert("Stok barang ini sudah habis!");
                 return;
@@ -790,8 +845,9 @@
 
         function renderKeranjang() {
             const listContainer = document.getElementById('keranjangItemList');
+            if (!listContainer) return;
             listContainer.innerHTML = "";
-            if (keranjang.length === 0) {
+            if (!keranjang || keranjang.length === 0) {
                 listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Keranjang masih kosong. Silakan pilih produk dari katalog.</p>`;
                 document.getElementById('summaryTotalItem').innerText = "0 pcs";
                 document.getElementById('summaryTotalHarga').innerText = "Rp 0";
@@ -809,7 +865,7 @@
                 div.className = "flex items-center justify-between py-2 text-xs";
                 div.innerHTML = `
                     <div class="flex-1 pr-2">
-                        <div class="font-bold text-slate-800">${item.nama}</div>
+                        <div class="font-bold text-slate-800">${escapeHtml(item.nama)}</div>
                         <div class="text-slate-500">Rp ${item.hargaJual.toLocaleString('id-ID')} x ${item.qty}</div>
                     </div>
                     <div class="flex items-center gap-1.5">
@@ -828,8 +884,11 @@
 
         function ubahQtyKeranjang(idx, delta) {
             const item = keranjang[idx];
-            const stokTersedia = stokBarang[item.index].stok;
+            if (!item) return;
+            const produkAsli = stokBarang[item.index];
+            const stokTersedia = produkAsli ? produkAsli.stok : 0;
             const newQty = item.qty + delta;
+
             if (newQty > stokTersedia) {
                 alert("Jumlah melebihi sisa stok!");
                 return;
@@ -845,15 +904,20 @@
         function clearKeranjang() {
             keranjang = [];
             renderKeranjang();
-            document.getElementById('inputUangBayar').value = "";
-            document.getElementById('labelKembalian').innerText = "Rp 0";
+            const inputBayar = document.getElementById('inputUangBayar');
+            if (inputBayar) inputBayar.value = "";
+            const lbl = document.getElementById('labelKembalian');
+            if (lbl) lbl.innerText = "Rp 0";
         }
 
         function hitungKembalian() {
             const totalHarga = keranjang.reduce((sum, item) => sum + (item.hargaJual * item.qty), 0);
-            const uangBayar = parseFloat(document.getElementById('inputUangBayar').value) || 0;
+            const inputBayar = document.getElementById('inputUangBayar');
+            const uangBayar = inputBayar ? (parseFloat(inputBayar.value) || 0) : 0;
             const kembalian = uangBayar - totalHarga;
             const lbl = document.getElementById('labelKembalian');
+            if (!lbl) return;
+
             if (kembalian >= 0) {
                 lbl.innerText = "Rp " + kembalian.toLocaleString('id-ID');
                 lbl.className = "text-emerald-600";
@@ -864,12 +928,14 @@
         }
 
         function prosesCheckout() {
-            if (keranjang.length === 0) {
+            if (!keranjang || keranjang.length === 0) {
                 alert("Keranjang belanja masih kosong!");
                 return;
             }
             const totalHarga = keranjang.reduce((sum, item) => sum + (item.hargaJual * item.qty), 0);
-            const uangBayar = parseFloat(document.getElementById('inputUangBayar').value) || 0;
+            const inputBayar = document.getElementById('inputUangBayar');
+            const uangBayar = inputBayar ? (parseFloat(inputBayar.value) || 0) : 0;
+
             if (uangBayar < totalHarga) {
                 alert("Uang pembayaran kurang dari total belanja!");
                 return;
@@ -877,7 +943,9 @@
 
             // Kurangi Stok Asli
             keranjang.forEach(item => {
-                stokBarang[item.index].stok -= item.qty;
+                if (stokBarang[item.index]) {
+                    stokBarang[item.index].stok -= item.qty;
+                }
             });
             localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
 
@@ -928,7 +996,7 @@
             trx.items.forEach(it => {
                 const row = document.createElement('div');
                 row.className = "flex justify-between py-0.5 text-xs text-slate-700";
-                row.innerHTML = `<span>${it.nama} x${it.qty}</span><span>Rp ${(it.hargaJual * it.qty).toLocaleString('id-ID')}</span>`;
+                row.innerHTML = `<span>${escapeHtml(it.nama)} x${it.qty}</span><span>Rp ${(it.hargaJual * it.qty).toLocaleString('id-ID')}</span>`;
                 container.appendChild(row);
             });
 
@@ -941,8 +1009,9 @@
 
         function renderRiwayatTable() {
             const tbody = document.getElementById('tabelRiwayatBody');
+            if (!tbody) return;
             tbody.innerHTML = "";
-            if (riwayatTransaksi.length === 0) {
+            if (!riwayatTransaksi || riwayatTransaksi.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400 text-xs">Belum ada riwayat transaksi penjualan.</td></tr>`;
                 return;
             }
@@ -951,9 +1020,9 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition-colors border-b border-slate-100 text-xs sm:text-sm";
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-blue-600">${trx.noFaktur}</td>
-                    <td class="py-3 px-4 text-slate-500">${trx.waktu}</td>
-                    <td class="py-3 px-4 text-slate-700 truncate max-w-xs">${detailStr}</td>
+                    <td class="py-3 px-4 font-bold text-blue-600">${escapeHtml(trx.noFaktur)}</td>
+                    <td class="py-3 px-4 text-slate-500">${escapeHtml(trx.waktu)}</td>
+                    <td class="py-3 px-4 text-slate-700 truncate max-w-xs">${escapeHtml(detailStr)}</td>
                     <td class="py-3 px-4 text-right font-bold text-slate-900">Rp ${trx.totalHarga.toLocaleString('id-ID')}</td>
                     <td class="py-3 px-4 text-right text-slate-600">Rp ${trx.totalHpp.toLocaleString('id-ID')}</td>
                     <td class="py-3 px-4 text-right font-bold text-emerald-600">Rp ${trx.labaKotor.toLocaleString('id-ID')}</td>
@@ -992,10 +1061,15 @@
             const totalLaba = totalOmset - totalHppTerjual;
             const valuasiSisaStok = stokBarang.reduce((sum, s) => sum + (s.hpp * s.stok), 0);
 
-            document.getElementById('statOmset').innerText = "Rp " + totalOmset.toLocaleString('id-ID');
-            document.getElementById('statHpp').innerText = "Rp " + totalHppTerjual.toLocaleString('id-ID');
-            document.getElementById('statLaba').innerText = "Rp " + totalLaba.toLocaleString('id-ID');
-            document.getElementById('statValuasi').innerText = "Rp " + valuasiSisaStok.toLocaleString('id-ID');
+            const elOmset = document.getElementById('statOmset');
+            const elHpp = document.getElementById('statHpp');
+            const elLaba = document.getElementById('statLaba');
+            const elValuasi = document.getElementById('statValuasi');
+
+            if (elOmset) elOmset.innerText = "Rp " + totalOmset.toLocaleString('id-ID');
+            if (elHpp) elHpp.innerText = "Rp " + totalHppTerjual.toLocaleString('id-ID');
+            if (elLaba) elLaba.innerText = "Rp " + totalLaba.toLocaleString('id-ID');
+            if (elValuasi) elValuasi.innerText = "Rp " + valuasiSisaStok.toLocaleString('id-ID');
         }
 
         function initCharts() {
@@ -1004,51 +1078,56 @@
             const totalLaba = totalOmset - totalHppTerjual;
 
             // Chart Keuangan
-            const ctxKeuangan = document.getElementById('chartKeuangan').getContext('2d');
-            if (chartKeuanganInstance) chartKeuanganInstance.destroy();
-            chartKeuanganInstance = new Chart(ctxKeuangan, {
-                type: 'bar',
-                data: {
-                    labels: ['Omset Penjualan', 'Total HPP', 'Laba Kotor'],
-                    datasets: [{
-                        label: 'Rupiah (Rp)',
-                        data: [totalOmset, totalHppTerjual, totalLaba],
-                        backgroundColor: ['#2563eb', '#f59e0b', '#10b981'],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }
-                }
-            });
+            const canvasKeuangan = document.getElementById('chartKeuangan');
+            if (canvasKeuangan) {
+                const ctxKeuangan = canvasKeuangan.getContext('2d');
+                if (chartKeuanganInstance) chartKeuanganInstance.destroy();
+                chartKeuanganInstance = new Chart(ctxKeuangan, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Omset Penjualan', 'Total HPP', 'Laba Kotor'],
+                        datasets: [{
+                            label: 'Rupiah (Rp)',
+                            data: [totalOmset, totalHppTerjual, totalLaba],
+                            backgroundColor: ['#2563eb', '#f59e0b', '#10b981'],
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
 
             // Chart Stok
-            const ctxStok = document.getElementById('chartStok').getContext('2d');
-            if (chartStokInstance) chartStokInstance.destroy();
-            chartStokInstance = new Chart(ctxStok, {
-                type: 'doughnut',
-                data: {
-                    labels: stokBarang.map(s => s.nama),
-                    datasets: [{
-                        data: stokBarang.map(s => s.stok),
-                        backgroundColor: ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#1d4ed8']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
-                }
-            });
+            const canvasStok = document.getElementById('chartStok');
+            if (canvasStok) {
+                const ctxStok = canvasStok.getContext('2d');
+                if (chartStokInstance) chartStokInstance.destroy();
+                chartStokInstance = new Chart(ctxStok, {
+                    type: 'doughnut',
+                    data: {
+                        labels: stokBarang.map(s => s.nama),
+                        datasets: [{
+                            data: stokBarang.map(s => s.stok),
+                            backgroundColor: ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#1d4ed8']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+                    }
+                });
+            }
         }
 
         // --- EXPORT & IMPORT EXCEL (.xlsx) ---
         function exportExcelStok() {
             const wb = XLSX.utils.book_new();
 
-            // Sheet 1: Identitas & Ringkasan
             const wsInfoData = [
                 ["LAPORAN PRAKTIK KEWIRAUSAHAAN SMK"],
                 ["Nama Siswa", currentNama],
@@ -1060,7 +1139,6 @@
             const wsInfo = XLSX.utils.aoa_to_sheet(wsInfoData);
             XLSX.utils.book_append_sheet(wb, wsInfo, "Info & Ringkasan");
 
-            // Sheet 2: Stok Barang
             const stokSheetData = stokBarang.map(s => ({
                 "Nama Produk": s.nama,
                 "Kategori": s.kategori,
@@ -1074,7 +1152,6 @@
             const wsStok = XLSX.utils.json_to_sheet(stokSheetData);
             XLSX.utils.book_append_sheet(wb, wsStok, "Daftar Stok & HPP");
 
-            // Sheet 3: Riwayat Penjualan
             const riwayatSheetData = riwayatTransaksi.map(t => ({
                 "No. Faktur": t.noFaktur,
                 "Waktu": t.waktu,
@@ -1085,7 +1162,6 @@
             const wsRiwayat = XLSX.utils.json_to_sheet(riwayatSheetData);
             XLSX.utils.book_append_sheet(wb, wsRiwayat, "Riwayat Penjualan");
 
-            // Download file
             XLSX.writeFile(wb, `Laporan_Kewirausahaan_${currentNama.replace(/\s+/g, '_')}_${currentCompany.replace(/\s+/g, '_')}.xlsx`);
         }
 
@@ -1125,6 +1201,17 @@
                 }
             };
             reader.readAsArrayBuffer(file);
+        }
+
+        // Helper escape HTML to prevent XSS or rendering issues
+        function escapeHtml(text) {
+            if (!text) return "";
+            return text.toString()
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
     </script>
 </body>
