@@ -1126,7 +1126,7 @@
             }
         }
 
-        // --- EXPORT LAPORAN PDF (TANPA GRAFIK, DETAIL HPP, NAMA & KELAS LENGKAP) ---
+        // --- EXPORT LAPORAN PDF (DENGAN TOMBOL KEMBALI & CETAK) ---
         function exportLaporanPDF() {
             const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
@@ -1179,13 +1179,16 @@
                         h3 { font-size: 15px; color: #1e293b; border-left: 4px solid #2563eb; padding-left: 8px; margin-top: 25px; margin-bottom: 10px; }
                         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
                         th { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px; text-align: left; font-weight: bold; color: #334155; }
+                        .action-bar { text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 12px; }
+                        .btn-print { background: #2563eb; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+                        .btn-close { background: #64748b; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; }
                         @media print {
                             body { padding: 10px; }
-                            button { display: none; }
+                            .action-bar { display: none !important; }
                         }
                     </style>
                 </head>
-                <body onload="window.print()">
+                <body>
                     <div class="header">
                         <h2>Laporan Praktik Kewirausahaan SMK</h2>
                         <p>Manajemen Stok, POS Penjualan & Kalkulasi Harga Pokok Penjualan (HPP)</p>
@@ -1257,8 +1260,9 @@
                         </tbody>
                     </table>
 
-                    <div style="text-align: center; margin-top: 40px;">
-                        <button onclick="window.print()" style="background: #2563eb; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer;">Cetak / Simpan PDF</button>
+                    <div class="action-bar">
+                        <button class="btn-print" onclick="window.print()">Cetak / Simpan PDF</button>
+                        <button class="btn-close" onclick="window.close()">Tutup Halaman</button>
                     </div>
                 </body>
                 </html>
