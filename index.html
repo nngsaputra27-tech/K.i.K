@@ -22,20 +22,18 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100/50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-blue-50/50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
 
     <!-- MODAL IDENTITAS SISWA & PERUSAHAAN -->
-    <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-xl overflow-hidden border border-blue-100 transform transition-all my-auto">
+    <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden border border-blue-100 transform transition-all my-auto">
             <!-- Header Modal -->
-            <div class="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 p-6 sm:p-8 text-white text-center relative overflow-hidden">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="bg-gradient-to-r from-blue-700 to-blue-600 p-6 text-white text-center relative">
                 <!-- SMK School Logo Emblem -->
-                <div class="mx-auto w-16 h-16 bg-white/15 rounded-2xl flex items-center justify-center mb-3 border border-white/25 shadow-lg backdrop-blur-sm">
+                <div class="mx-auto w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-3 border border-white/20 shadow-inner">
                     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.016.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083 0 005.845 10.578L12 14z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0.016.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083 0.000 6.665 5.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
                     </svg>
                 </div>
                 <h2 class="text-xl sm:text-2xl font-bold tracking-tight">SMK KREATIF INOVATIF KEWIRAUSAHAAN</h2>
@@ -45,55 +43,55 @@
             <!-- Form Body -->
             <div class="p-6 sm:p-8 space-y-5">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Nama Lengkap Siswa</label>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Nama Lengkap Siswa</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <i class="fa-solid fa-user"></i>
                         </span>
-                        <input type="text" id="inputNama" placeholder="Contoh: Budi Santoso" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all font-medium text-slate-800">
+                        <input type="text" id="inputNama" placeholder="Contoh: Budi Santoso" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all font-medium">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Kelas Siswa</label>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Kelas Siswa</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </span>
-                        <input type="text" id="inputKelas" placeholder="Kelas XI/XII AKL" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all font-medium text-slate-800">
+                        <input type="text" id="inputKelas" placeholder="Contoh: XI AKL 1 atau XII TKJ 2" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all font-medium">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Pilih Perusahaan Simulasi</label>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Pilih Perusahaan Simulasi</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <!-- Pilihan 1: PT Kreatif Furnitur -->
-                        <div id="cardCompany1" onclick="selectCompany('PT KREATIF FURNITUR')" class="cursor-pointer border-2 p-4 rounded-2xl transition-all relative flex flex-col justify-between shadow-sm group">
+                        <!-- Pilihan 1: Kelas XI -->
+                        <label id="cardCompany1" onclick="selectCompany('PT KREATIF FURNITUR', 'XI')" class="cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-blue-600 shadow-sm">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="badge-tag-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Unit Usaha 1</span>
-                                <i id="iconCard1" class="fa-solid fa-circle-check text-lg"></i>
+                                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 1</span>
+                                <i class="fa-solid fa-circle-check text-blue-600 text-lg check-icon-1"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-sm">PT KREATIF FURNITUR</h4>
+                                <h4 class="font-bold text-blue-900 text-sm">PT KREATIF FURNITUR</h4>
                                 <p class="text-xs text-slate-500 mt-1">Furniture & Handcraft - Meja, Lemari, Tas Ransel</p>
                             </div>
-                        </div>
+                        </label>
 
-                        <!-- Pilihan 2: CV Elektronik Inovasi -->
-                        <div id="cardCompany2" onclick="selectCompany('CV ELEKTRONIK INOVASI')" class="cursor-pointer border-2 p-4 rounded-2xl transition-all relative flex flex-col justify-between shadow-sm group">
+                        <!-- Pilihan 2: Kelas XII -->
+                        <label id="cardCompany2" onclick="selectCompany('CV ELEKTRONIK INOVASI', 'XII')" class="cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between hover:border-slate-300 shadow-sm">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="badge-tag-2 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Unit Usaha 2</span>
-                                <i id="iconCard2" class="fa-solid fa-circle-check text-lg"></i>
+                                <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Unit Usaha 2</span>
+                                <i class="fa-regular fa-circle text-slate-300 text-lg check-icon-2"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-sm">CV ELEKTRONIK INOVASI</h4>
+                                <h4 class="font-bold text-slate-800 text-sm">CV ELEKTRONIK INOVASI</h4>
                                 <p class="text-xs text-slate-500 mt-1">Elektronik & Appliances - Kipas Angin, Kulkas, Mesin Cuci</p>
                             </div>
-                        </div>
+                        </label>
                     </div>
                 </div>
 
-                <button onclick="saveProfile()" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2 text-sm mt-4">
+                <button onclick="saveProfile()" class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2 text-sm mt-4">
                     <i class="fa-solid fa-arrow-right-to-bracket"></i> Simpan & Masuk Workspace
                 </button>
             </div>
@@ -103,20 +101,19 @@
     <!-- MAIN APP WRAPPER -->
     <div id="appContainer" class="flex flex-col min-h-screen hidden">
         <!-- HEADER NAVBAR -->
-        <header class="bg-white/90 backdrop-blur-md border-b border-blue-100 sticky top-0 z-40 shadow-sm">
+        <header class="bg-white border-b border-blue-100 sticky top-0 z-40 shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                 <!-- Branding -->
                 <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-blue-600/20">
+                    <div class="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-600/20">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.016.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083 0 005.845 10.578L12 14z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083.016.665 11.455 1.2M12 14l-6.16-3.422A12.083 12.083.000 6.665 5.455 1.2M12 14v7m-7-3.5a19.04 19.04 0 0114 0"></path>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-sm sm:text-base font-bold text-slate-900 leading-tight">SMK KREATIF INOVATIF KEWIRAUSAHAAN</h1>
-                        <p class="text-xs text-blue-600 font-semibold" id="headerSub">-</p>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">SMK KREATIF INOVATIF KEWIRAUSAHAAN</h1>
+                        <p class="text-xs text-blue-600 font-medium" id="headerSub">PT KREATIF FURNITUR • Siswa</p>
                     </div>
                 </div>
 
@@ -124,9 +121,9 @@
                 <div class="flex items-center gap-3">
                     <div class="hidden sm:flex flex-col text-right">
                         <span class="text-xs font-bold text-slate-800" id="displayNama">-</span>
-                        <span class="text-[11px] bg-blue-50 text-blue-700 font-semibold px-2.5 py-0.5 rounded-md border border-blue-100 inline-block mt-0.5" id="displayKelasCompany">-</span>
+                        <span class="text-[11px] bg-blue-50 text-blue-700 font-semibold px-2 py-0.5 rounded-md border border-blue-100 inline-block mt-0.5" id="displayKelasCompany">-</span>
                     </div>
-                    <button onclick="openLoginModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-1.5 border border-slate-200 shadow-sm">
+                    <button onclick="openLoginModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-1.5 border border-slate-200">
                         <i class="fa-solid fa-user-pen"></i> <span class="hidden md:inline">Ganti Profil</span>
                     </button>
                 </div>
@@ -134,15 +131,15 @@
         </header>
 
         <!-- SUB HEADER NAVIGATION TABS -->
-        <div class="bg-white/60 backdrop-blur-sm border-b border-slate-200 shadow-xs">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-2 overflow-x-auto py-2.5">
-                <button onclick="switchTab('stok')" id="tabBtnStok" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-md shadow-blue-600/20 whitespace-nowrap">
+        <div class="bg-white border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-2 overflow-x-auto py-2">
+                <button onclick="switchTab('stok')" id="tabBtnStok" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap">
                     <i class="fa-solid fa-boxes-stacked"></i> Manajemen Stok & HPP
                 </button>
-                <button onclick="switchTab('kasir')" id="tabBtnKasir" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 whitespace-nowrap">
+                <button onclick="switchTab('kasir')" id="tabBtnKasir" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">
                     <i class="fa-solid fa-cash-register"></i> Kasir & Penjualan (POS)
                 </button>
-                <button onclick="switchTab('laporan')" id="tabBtnLaporan" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 whitespace-nowrap">
+                <button onclick="switchTab('laporan')" id="tabBtnLaporan" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">
                     <i class="fa-solid fa-chart-pie"></i> Laporan & Grafik
                 </button>
             </div>
@@ -154,10 +151,10 @@
             <!-- TAB 1: MANAJEMEN STOK & HPP -->
             <div id="tabStok" class="space-y-6">
                 <!-- Action Bar -->
-                <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 sm:p-5 rounded-2xl border border-blue-100 shadow-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl">
-                            <i class="fa-solid fa-box-open text-xl"></i>
+                <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 bg-white p-4 rounded-2xl border border-blue-100 shadow-sm">
+                    <div class="flex items-center gap-2">
+                        <div class="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
+                            <i class="fa-solid fa-box-open text-lg"></i>
                         </div>
                         <div>
                             <h3 class="font-bold text-slate-900 text-sm sm:text-base">Daftar Stok Barang & Kalkulator HPP</h3>
@@ -168,7 +165,7 @@
                         <button onclick="openAddProductModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-600/20 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-plus"></i> Tambah Barang
                         </button>
-                        <button onclick="resetDefaultStok()" title="Muat ulang barang bawaan" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200">
+                        <button onclick="resetDefaultStok()" title="Muat ulang barang bawaan sesuai perusahaan" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-200">
                             <i class="fa-solid fa-rotate-right"></i> Reset Default
                         </button>
                         <label class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all shadow-md shadow-emerald-600/20 cursor-pointer flex items-center justify-center gap-2">
@@ -190,10 +187,10 @@
                                     <th class="py-3.5 px-4">Nama Produk</th>
                                     <th class="py-3.5 px-4">Kategori</th>
                                     <th class="py-3.5 px-4 text-right">Biaya Bahan</th>
-                                    <th class="py-3.5 px-4 text-right">Biaya Overhead</th>
+                                    <th class="py-3.5 px-4 text-right">Biaya Overhead/T.Kerja</th>
                                     <th class="py-3.5 px-4 text-right">Total HPP/Unit</th>
                                     <th class="py-3.5 px-4 text-right">Harga Jual</th>
-                                    <th class="py-3.5 px-4 text-center">Margin</th>
+                                    <th class="py-3.5 px-4 text-center">Margin (%)</th>
                                     <th class="py-3.5 px-4 text-center">Stok</th>
                                     <th class="py-3.5 px-4 text-center">Aksi</th>
                                 </tr>
@@ -238,7 +235,7 @@
 
                             <!-- List Item Keranjang -->
                             <div id="keranjangItemList" class="divide-y divide-slate-100 max-h-64 overflow-y-auto space-y-2 pr-1">
-                                <p class="text-xs text-slate-400 text-center py-6">Keranjang masih kosong.</p>
+                                <p class="text-xs text-slate-400 text-center py-6">Keranjang masih kosong. Silakan pilih produk dari katalog.</p>
                             </div>
 
                             <!-- Kalkulasi Total -->
@@ -308,10 +305,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-sm flex flex-col justify-between">
                         <div class="flex items-center justify-between text-slate-500 mb-2">
-                            <span class="text-xs font-semibold uppercase tracking-wider">Total Omset</span>
+                            <span class="text-xs font-semibold uppercase tracking-wider">Total Omset Penjualan</span>
                             <div class="p-2 bg-blue-50 text-blue-600 rounded-xl"><i class="fa-solid fa-wallet"></i></div>
                         </div>
                         <h4 id="statOmset" class="text-xl sm:text-2xl font-bold text-slate-900">Rp 0</h4>
+                        <span class="text-[11px] text-slate-400 mt-1">Akumulasi seluruh transaksi</span>
                     </div>
 
                     <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-sm flex flex-col justify-between">
@@ -320,6 +318,7 @@
                             <div class="p-2 bg-amber-50 text-amber-600 rounded-xl"><i class="fa-solid fa-tags"></i></div>
                         </div>
                         <h4 id="statHpp" class="text-xl sm:text-2xl font-bold text-slate-900">Rp 0</h4>
+                        <span class="text-[11px] text-slate-400 mt-1">Modal pokok barang terjual</span>
                     </div>
 
                     <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-sm flex flex-col justify-between">
@@ -328,6 +327,7 @@
                             <div class="p-2 bg-emerald-50 text-emerald-600 rounded-xl"><i class="fa-solid fa-chart-line"></i></div>
                         </div>
                         <h4 id="statLaba" class="text-xl sm:text-2xl font-bold text-emerald-600">Rp 0</h4>
+                        <span class="text-[11px] text-slate-400 mt-1">Keuntungan bersih kotor</span>
                     </div>
 
                     <div class="bg-white p-5 rounded-2xl border border-blue-100 shadow-sm flex flex-col justify-between">
@@ -336,6 +336,7 @@
                             <div class="p-2 bg-indigo-50 text-indigo-600 rounded-xl"><i class="fa-solid fa-warehouse"></i></div>
                         </div>
                         <h4 id="statValuasi" class="text-xl sm:text-2xl font-bold text-slate-900">Rp 0</h4>
+                        <span class="text-[11px] text-slate-400 mt-1">Nilai modal sisa inventaris</span>
                     </div>
                 </div>
 
@@ -362,7 +363,7 @@
         <!-- FOOTER -->
         <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
             <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 font-medium">
-                SMK KREATIF INOVATIF KEWIRAUSAHAAN &copy; 2026 &bull; Aplikasi Praktik Kewirausahaan Siswa SMK
+                SMK KREATIF INOVATIF KEWIRAUSAHAAN &copy; 2026 &bull; Aplikasi Pembelajaran Praktik Kewirausahaan Siswa SMK
             </div>
         </footer>
     </div>
@@ -390,13 +391,13 @@
                         <input type="number" id="prodBahan" oninput="hitungOtomatisHPP()" placeholder="0" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-600 focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Biaya Overhead (Rp)</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Biaya T.Kerja/Overhead (Rp)</label>
                         <input type="number" id="prodOverhead" oninput="hitungOtomatisHPP()" placeholder="0" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-600 focus:outline-none">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Total HPP/Unit</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Total HPP/Unit (Otomatis)</label>
                         <input type="number" id="prodHpp" readonly class="w-full px-3.5 py-2.5 bg-blue-50/70 border border-blue-200 rounded-xl text-sm font-bold text-blue-700">
                     </div>
                     <div>
@@ -406,7 +407,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Harga Jual</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Harga Jual Rekomendasi</label>
                         <input type="number" id="prodHargaJual" placeholder="0" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800">
                     </div>
                     <div>
@@ -473,6 +474,7 @@
 
     <!-- SCRIPT UTAMA APLIKASI -->
     <script>
+        // Default Mock Data Berdasarkan Perusahaan
         const defaultStokData = {
             "PT KREATIF FURNITUR": [
                 { nama: "Meja Kayu Minimalis", kategori: "Furniture", bahan: 120000, overhead: 30000, hpp: 150000, margin: 33.33, hargaJual: 200000, stok: 15 },
@@ -486,6 +488,7 @@
             ]
         };
 
+        // State Global Aplikasi
         let currentNama = localStorage.getItem('smk_nama') || "";
         let currentKelas = localStorage.getItem('smk_kelas') || "";
         let currentCompany = localStorage.getItem('smk_company') || "PT KREATIF FURNITUR";
@@ -497,6 +500,7 @@
         let chartKeuanganInstance = null;
         let chartStokInstance = null;
 
+        // Inisialisasi Saat Halaman Dimuat
         window.onload = function() {
             if (!currentNama || !currentKelas) {
                 openLoginModal();
@@ -514,7 +518,7 @@
         function openLoginModal() {
             document.getElementById('inputNama').value = currentNama;
             document.getElementById('inputKelas').value = currentKelas;
-            selectCompany(currentCompany);
+            selectCompany(currentCompany, currentCompany === 'PT KREATIF FURNITUR' ? '1' : '2');
             document.getElementById('loginModal').classList.remove('hidden');
         }
 
@@ -522,31 +526,18 @@
             document.getElementById('loginModal').classList.add('hidden');
         }
 
-        function selectCompany(companyName) {
+        function selectCompany(companyName, type) {
             currentCompany = companyName;
-            const card1 = document.getElementById('cardCompany1');
-            const card2 = document.getElementById('cardCompany2');
-            const icon1 = document.getElementById('iconCard1');
-            const icon2 = document.getElementById('iconCard2');
-            const tag1 = card1.querySelector('.badge-tag-1');
-            const tag2 = card2.querySelector('.badge-tag-2');
-
-            if (currentCompany === 'PT KREATIF FURNITUR') {
-                card1.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-2xl transition-all relative flex flex-col justify-between shadow-sm group";
-                icon1.className = "fa-solid fa-circle-check text-blue-600 text-lg";
-                tag1.className = "badge-tag-1 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full";
-
-                card2.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-2xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300 group";
-                icon2.className = "fa-solid fa-circle text-slate-300 text-lg";
-                tag2.className = "badge-tag-2 bg-slate-200 text-slate-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full";
+            if (type === '1' || type === 'XI') {
+                document.getElementById('cardCompany1').className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                document.getElementById('cardCompany1').querySelector('.fa-circle-check').className = "fa-solid fa-circle-check text-blue-600 text-lg";
+                document.getElementById('cardCompany2').className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                document.getElementById('cardCompany2').querySelector('.fa-regular,.fa-solid').className = "fa-regular fa-circle text-slate-300 text-lg";
             } else {
-                card2.className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-2xl transition-all relative flex flex-col justify-between shadow-sm group";
-                icon2.className = "fa-solid fa-circle-check text-blue-600 text-lg";
-                tag2.className = "badge-tag-2 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full";
-
-                card1.className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-2xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300 group";
-                icon1.className = "fa-solid fa-circle text-slate-300 text-lg";
-                tag1.className = "badge-tag-1 bg-slate-200 text-slate-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full";
+                document.getElementById('cardCompany2').className = "cursor-pointer border-2 border-blue-600 bg-blue-50/60 p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm";
+                document.getElementById('cardCompany2').querySelector('.fa-regular,.fa-solid').className = "fa-solid fa-circle-check text-blue-600 text-lg";
+                document.getElementById('cardCompany1').className = "cursor-pointer border-2 border-slate-200 bg-white p-4 rounded-xl transition-all relative flex flex-col justify-between shadow-sm hover:border-slate-300";
+                document.getElementById('cardCompany1').querySelector('.fa-circle-check').className = "fa-regular fa-circle text-slate-300 text-lg";
             }
         }
 
@@ -564,6 +555,7 @@
             localStorage.setItem('smk_kelas', currentKelas);
             localStorage.setItem('smk_company', currentCompany);
 
+            // Muat ulang stok berdasarkan perusahaan jika belum ada
             if (!localStorage.getItem('smk_stok_' + currentCompany)) {
                 stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany]));
                 localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
@@ -593,31 +585,32 @@
             document.getElementById('tabKasir').classList.add('hidden');
             document.getElementById('tabLaporan').classList.add('hidden');
 
-            document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 whitespace-nowrap";
-            document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 whitespace-nowrap";
-            document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 whitespace-nowrap";
+            document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+            document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+            document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
 
             if (tabId === 'stok') {
                 document.getElementById('tabStok').classList.remove('hidden');
-                document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-md shadow-blue-600/20 whitespace-nowrap";
+                document.getElementById('tabBtnStok').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
                 renderStokTable();
             } else if (tabId === 'kasir') {
                 document.getElementById('tabKasir').classList.remove('hidden');
-                document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-md shadow-blue-600/20 whitespace-nowrap";
+                document.getElementById('tabBtnKasir').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
                 renderKatalogKasir();
             } else if (tabId === 'laporan') {
                 document.getElementById('tabLaporan').classList.remove('hidden');
-                document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-md shadow-blue-600/20 whitespace-nowrap";
+                document.getElementById('tabBtnLaporan').className = "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm whitespace-nowrap";
                 updateLaporanStatistik();
                 initCharts();
             }
         }
 
+        // --- MANAJEMEN STOK & HPP ---
         function renderStokTable() {
             const tbody = document.getElementById('tabelStokBody');
             tbody.innerHTML = "";
             if (stokBarang.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-400 text-xs">Belum ada data barang.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-400 text-xs">Belum ada data barang. Silakan tambah barang baru.</td></tr>`;
                 return;
             }
             stokBarang.forEach((item, index) => {
@@ -700,11 +693,12 @@
             const stok = parseInt(document.getElementById('prodStok').value) || 0;
 
             if (!nama || hpp <= 0 || hargaJual <= 0) {
-                alert("Mohon lengkapi Nama Produk, HPP, dan Harga Jual!");
+                alert("Mohon lengkapi Nama Produk, HPP, dan Harga Jual dengan benar!");
                 return;
             }
 
             const newObj = { nama, kategori, bahan, overhead, hpp, margin, hargaJual, stok };
+
             if (index === -1) {
                 stokBarang.push(newObj);
             } else {
@@ -718,7 +712,7 @@
         }
 
         function hapusProduk(index) {
-            if (confirm("Hapus produk ini dari daftar stok?")) {
+            if (confirm("Apakah Anda yakin ingin menghapus produk ini dari daftar stok?")) {
                 stokBarang.splice(index, 1);
                 localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
                 renderStokTable();
@@ -727,7 +721,7 @@
         }
 
         function resetDefaultStok() {
-            if (confirm("Muat ulang produk bawaan default?")) {
+            if (confirm("Muat ulang daftar produk bawaan awal untuk perusahaan ini?")) {
                 stokBarang = JSON.parse(JSON.stringify(defaultStokData[currentCompany]));
                 localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
                 renderStokTable();
@@ -735,11 +729,12 @@
             }
         }
 
+        // --- KASIR & PENJUALAN (POS) ---
         function renderKatalogKasir() {
             const grid = document.getElementById('katalogKasirGrid');
             grid.innerHTML = "";
             if (stokBarang.length === 0) {
-                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-6">Stok kosong.</p>`;
+                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-6">Belum ada produk dalam stok.</p>`;
                 return;
             }
             stokBarang.forEach((item, index) => {
@@ -753,6 +748,9 @@
                             <span class="text-xs font-bold ${item.stok <= 3 ? 'text-red-500' : 'text-slate-500'}">Stok: ${item.stok}</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm mb-1">${item.nama}</h4>
+                        <div class="text-xs text-slate-500 space-y-0.5">
+                            <div>HPP: Rp ${item.hpp.toLocaleString('id-ID')}</div>
+                        </div>
                     </div>
                     <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
                         <span class="font-bold text-emerald-600 text-sm">Rp ${item.hargaJual.toLocaleString('id-ID')}</span>
@@ -768,15 +766,24 @@
         function tambahKeKeranjang(index) {
             const produk = stokBarang[index];
             if (produk.stok <= 0) {
-                alert("Stok habis!");
+                alert("Stok barang ini sudah habis!");
                 return;
             }
             const existing = keranjang.find(item => item.index === index);
             if (existing) {
-                if (existing.qty < produk.stok) existing.qty++;
-                else alert("Melebihi stok tersedia!");
+                if (existing.qty < produk.stok) {
+                    existing.qty++;
+                } else {
+                    alert("Jumlah melebihi stok yang tersedia!");
+                }
             } else {
-                keranjang.push({ index, nama: produk.nama, hargaJual: produk.hargaJual, hpp: produk.hpp, qty: 1 });
+                keranjang.push({
+                    index: index,
+                    nama: produk.nama,
+                    hargaJual: produk.hargaJual,
+                    hpp: produk.hpp,
+                    qty: 1
+                });
             }
             renderKeranjang();
         }
@@ -785,7 +792,7 @@
             const listContainer = document.getElementById('keranjangItemList');
             listContainer.innerHTML = "";
             if (keranjang.length === 0) {
-                listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Keranjang kosong.</p>`;
+                listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Keranjang masih kosong. Silakan pilih produk dari katalog.</p>`;
                 document.getElementById('summaryTotalItem').innerText = "0 pcs";
                 document.getElementById('summaryTotalHarga').innerText = "Rp 0";
                 return;
@@ -806,9 +813,9 @@
                         <div class="text-slate-500">Rp ${item.hargaJual.toLocaleString('id-ID')} x ${item.qty}</div>
                     </div>
                     <div class="flex items-center gap-1.5">
-                        <button onclick="ubahQtyKeranjang(${idx}, -1)" class="w-6 h-6 bg-slate-100 rounded text-slate-600 font-bold">-</button>
+                        <button onclick="ubahQtyKeranjang(${idx}, -1)" class="w-6 h-6 bg-slate-100 rounded text-slate-600 font-bold hover:bg-slate-200">-</button>
                         <span class="font-bold w-5 text-center">${item.qty}</span>
-                        <button onclick="ubahQtyKeranjang(${idx}, 1)" class="w-6 h-6 bg-slate-100 rounded text-slate-600 font-bold">+</button>
+                        <button onclick="ubahQtyKeranjang(${idx}, 1)" class="w-6 h-6 bg-slate-100 rounded text-slate-600 font-bold hover:bg-slate-200">+</button>
                     </div>
                 `;
                 listContainer.appendChild(div);
@@ -824,11 +831,14 @@
             const stokTersedia = stokBarang[item.index].stok;
             const newQty = item.qty + delta;
             if (newQty > stokTersedia) {
-                alert("Melebihi stok!");
+                alert("Jumlah melebihi sisa stok!");
                 return;
             }
-            if (newQty <= 0) keranjang.splice(idx, 1);
-            else item.qty = newQty;
+            if (newQty <= 0) {
+                keranjang.splice(idx, 1);
+            } else {
+                item.qty = newQty;
+            }
             renderKeranjang();
         }
 
@@ -855,30 +865,46 @@
 
         function prosesCheckout() {
             if (keranjang.length === 0) {
-                alert("Keranjang kosong!");
+                alert("Keranjang belanja masih kosong!");
                 return;
             }
             const totalHarga = keranjang.reduce((sum, item) => sum + (item.hargaJual * item.qty), 0);
             const uangBayar = parseFloat(document.getElementById('inputUangBayar').value) || 0;
             if (uangBayar < totalHarga) {
-                alert("Uang pembayaran kurang!");
+                alert("Uang pembayaran kurang dari total belanja!");
                 return;
             }
 
-            keranjang.forEach(item => { stokBarang[item.index].stok -= item.qty; });
+            // Kurangi Stok Asli
+            keranjang.forEach(item => {
+                stokBarang[item.index].stok -= item.qty;
+            });
             localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
 
+            // Buat Catatan Transaksi
             const totalHppTransaksi = keranjang.reduce((sum, item) => sum + (item.hpp * item.qty), 0);
             const labaKotor = totalHarga - totalHppTransaksi;
             const noFaktur = "INV-" + Math.floor(100000 + Math.random() * 900000);
             const waktu = new Date().toLocaleString('id-ID');
 
-            const transaksiBaru = { noFaktur, waktu, items: JSON.parse(JSON.stringify(keranjang)), totalHarga, totalHpp: totalHppTransaksi, labaKotor, uangBayar, kembalian: uangBayar - totalHarga };
+            const transaksiBaru = {
+                noFaktur,
+                waktu,
+                items: JSON.parse(JSON.stringify(keranjang)),
+                totalHarga,
+                totalHpp: totalHppTransaksi,
+                labaKotor,
+                uangBayar,
+                kembalian: uangBayar - totalHarga
+            };
+
             riwayatTransaksi.unshift(transaksiBaru);
             localStorage.setItem('smk_riwayat_' + currentCompany, JSON.stringify(riwayatTransaksi));
 
+            // Tampilkan Struk
             tampilkanStrukModal(transaksiBaru);
 
+            // Reset
             keranjang = [];
             renderKeranjang();
             renderStokTable();
@@ -905,16 +931,19 @@
                 row.innerHTML = `<span>${it.nama} x${it.qty}</span><span>Rp ${(it.hargaJual * it.qty).toLocaleString('id-ID')}</span>`;
                 container.appendChild(row);
             });
+
             document.getElementById('modalStruk').classList.remove('hidden');
         }
 
-        function closeStrukModal() { document.getElementById('modalStruk').classList.add('hidden'); }
+        function closeStrukModal() {
+            document.getElementById('modalStruk').classList.add('hidden');
+        }
 
         function renderRiwayatTable() {
             const tbody = document.getElementById('tabelRiwayatBody');
             tbody.innerHTML = "";
             if (riwayatTransaksi.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400 text-xs">Belum ada transaksi.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-slate-400 text-xs">Belum ada riwayat transaksi penjualan.</td></tr>`;
                 return;
             }
             riwayatTransaksi.forEach((trx, index) => {
@@ -928,14 +957,16 @@
                     <td class="py-3 px-4 text-right font-bold text-slate-900">Rp ${trx.totalHarga.toLocaleString('id-ID')}</td>
                     <td class="py-3 px-4 text-right text-slate-600">Rp ${trx.totalHpp.toLocaleString('id-ID')}</td>
                     <td class="py-3 px-4 text-right font-bold text-emerald-600">Rp ${trx.labaKotor.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-center"><button onclick="hapusRiwayatItem(${index})" class="p-1.5 bg-red-50 text-red-600 rounded-lg"><i class="fa-solid fa-trash"></i></button></td>
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="hapusRiwayatItem(${index})" title="Hapus" class="p-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"><i class="fa-solid fa-trash"></i></button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
         function hapusRiwayatItem(index) {
-            if (confirm("Hapus transaksi?")) {
+            if (confirm("Hapus catatan transaksi ini?")) {
                 riwayatTransaksi.splice(index, 1);
                 localStorage.setItem('smk_riwayat_' + currentCompany, JSON.stringify(riwayatTransaksi));
                 renderRiwayatTable();
@@ -945,7 +976,7 @@
         }
 
         function resetRiwayat() {
-            if (confirm("Hapus seluruh riwayat?")) {
+            if (confirm("Hapus seluruh riwayat transaksi penjualan?")) {
                 riwayatTransaksi = [];
                 localStorage.setItem('smk_riwayat_' + currentCompany, JSON.stringify(riwayatTransaksi));
                 renderRiwayatTable();
@@ -954,6 +985,7 @@
             }
         }
 
+        // --- LAPORAN & STATISTIK ---
         function updateLaporanStatistik() {
             const totalOmset = riwayatTransaksi.reduce((sum, t) => sum + t.totalHarga, 0);
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
@@ -971,41 +1003,90 @@
             const totalHppTerjual = riwayatTransaksi.reduce((sum, t) => sum + t.totalHpp, 0);
             const totalLaba = totalOmset - totalHppTerjual;
 
+            // Chart Keuangan
             const ctxKeuangan = document.getElementById('chartKeuangan').getContext('2d');
             if (chartKeuanganInstance) chartKeuanganInstance.destroy();
             chartKeuanganInstance = new Chart(ctxKeuangan, {
                 type: 'bar',
                 data: {
-                    labels: ['Omset', 'Total HPP', 'Laba Kotor'],
-                    datasets: [{ data: [totalOmset, totalHppTerjual, totalLaba], backgroundColor: ['#2563eb', '#f59e0b', '#10b981'], borderRadius: 8 }]
+                    labels: ['Omset Penjualan', 'Total HPP', 'Laba Kotor'],
+                    datasets: [{
+                        label: 'Rupiah (Rp)',
+                        data: [totalOmset, totalHppTerjual, totalLaba],
+                        backgroundColor: ['#2563eb', '#f59e0b', '#10b981'],
+                        borderRadius: 8
+                    }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
             });
 
+            // Chart Stok
             const ctxStok = document.getElementById('chartStok').getContext('2d');
             if (chartStokInstance) chartStokInstance.destroy();
             chartStokInstance = new Chart(ctxStok, {
                 type: 'doughnut',
                 data: {
                     labels: stokBarang.map(s => s.nama),
-                    datasets: [{ data: stokBarang.map(s => s.stok), backgroundColor: ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#1d4ed8'] }]
+                    datasets: [{
+                        data: stokBarang.map(s => s.stok),
+                        backgroundColor: ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#1d4ed8']
+                    }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+                }
             });
         }
 
+        // --- EXPORT & IMPORT EXCEL (.xlsx) ---
         function exportExcelStok() {
             const wb = XLSX.utils.book_new();
-            const wsInfo = XLSX.utils.aoa_to_sheet([["LAPORAN KEWIRAUSAHAAN SMK"], ["Nama", currentNama], ["Kelas", currentKelas], ["Perusahaan", currentCompany]]);
-            XLSX.utils.book_append_sheet(wb, wsInfo, "Info");
 
-            const stokSheetData = stokBarang.map(s => ({ "Nama Produk": s.nama, "Kategori": s.kategori, "Bahan": s.bahan, "Overhead": s.overhead, "HPP": s.hpp, "Margin (%)": s.margin, "Harga Jual": s.hargaJual, "Stok": s.stok }));
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(stokSheetData), "Stok");
+            // Sheet 1: Identitas & Ringkasan
+            const wsInfoData = [
+                ["LAPORAN PRAKTIK KEWIRAUSAHAAN SMK"],
+                ["Nama Siswa", currentNama],
+                ["Kelas", currentKelas],
+                ["Perusahaan Simulasi", currentCompany],
+                [],
+                ["MASTER STOK BARANG & HPP"]
+            ];
+            const wsInfo = XLSX.utils.aoa_to_sheet(wsInfoData);
+            XLSX.utils.book_append_sheet(wb, wsInfo, "Info & Ringkasan");
 
-            const riwayatSheetData = riwayatTransaksi.map(t => ({ "Faktur": t.noFaktur, "Waktu": t.waktu, "Omset": t.totalHarga, "HPP": t.totalHpp, "Laba": t.labaKotor }));
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(riwayatSheetData), "Riwayat");
+            // Sheet 2: Stok Barang
+            const stokSheetData = stokBarang.map(s => ({
+                "Nama Produk": s.nama,
+                "Kategori": s.kategori,
+                "Biaya Bahan (Rp)": s.bahan,
+                "Biaya Overhead (Rp)": s.overhead,
+                "Total HPP/Unit (Rp)": s.hpp,
+                "Margin (%)": s.margin,
+                "Harga Jual (Rp)": s.hargaJual,
+                "Stok": s.stok
+            }));
+            const wsStok = XLSX.utils.json_to_sheet(stokSheetData);
+            XLSX.utils.book_append_sheet(wb, wsStok, "Daftar Stok & HPP");
 
-            XLSX.writeFile(wb, `Laporan_${currentNama.replace(/\s+/g, '_')}.xlsx`);
+            // Sheet 3: Riwayat Penjualan
+            const riwayatSheetData = riwayatTransaksi.map(t => ({
+                "No. Faktur": t.noFaktur,
+                "Waktu": t.waktu,
+                "Total Omset (Rp)": t.totalHarga,
+                "Total HPP (Rp)": t.totalHpp,
+                "Laba Kotor (Rp)": t.labaKotor
+            }));
+            const wsRiwayat = XLSX.utils.json_to_sheet(riwayatSheetData);
+            XLSX.utils.book_append_sheet(wb, wsRiwayat, "Riwayat Penjualan");
+
+            // Download file
+            XLSX.writeFile(wb, `Laporan_Kewirausahaan_${currentNama.replace(/\s+/g, '_')}_${currentCompany.replace(/\s+/g, '_')}.xlsx`);
         }
 
         function importExcelStok(event) {
@@ -1016,24 +1097,32 @@
                 try {
                     const data = new Uint8Array(e.target.result);
                     const workbook = XLSX.read(data, { type: 'array' });
-                    const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[1] || workbook.SheetNames[0]]);
+                    const firstSheetName = workbook.SheetNames[1] || workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+                    const json = XLSX.utils.sheet_to_json(worksheet);
+
                     if (json.length > 0) {
                         stokBarang = json.map(row => ({
-                            nama: row["Nama Produk"] || row["nama"] || "Produk",
-                            kategori: row["Kategori"] || "Umum",
-                            bahan: parseFloat(row["Bahan"] || row["bahan"]) || 0,
-                            overhead: parseFloat(row["Overhead"] || row["overhead"]) || 0,
-                            hpp: parseFloat(row["HPP"] || row["hpp"]) || 0,
-                            margin: parseFloat(row["Margin (%)"] || 30),
-                            hargaJual: parseFloat(row["Harga Jual"] || row["hargaJual"]) || 0,
-                            stok: parseInt(row["Stok"] || 10)
+                            nama: row["Nama Produk"] || row["nama"] || "Produk Baru",
+                            kategori: row["Kategori"] || row["kategori"] || "Umum",
+                            bahan: parseFloat(row["Biaya Bahan (Rp)"] || row["bahan"]) || 0,
+                            overhead: parseFloat(row["Biaya Overhead (Rp)"] || row["overhead"]) || 0,
+                            hpp: parseFloat(row["Total HPP/Unit (Rp)"] || row["hpp"]) || 0,
+                            margin: parseFloat(row["Margin (%)"] || row["margin"]) || 30,
+                            hargaJual: parseFloat(row["Harga Jual (Rp)"] || row["hargaJual"]) || 0,
+                            stok: parseInt(row["Stok"] || row["stok"]) || 10
                         }));
                         localStorage.setItem('smk_stok_' + currentCompany, JSON.stringify(stokBarang));
                         renderStokTable();
                         renderKatalogKasir();
-                        alert("Berhasil diimpor!");
+                        alert("Data stok berhasil diimpor dari Excel!");
+                    } else {
+                        alert("Format file Excel tidak sesuai.");
                     }
-                } catch (err) { alert("Format file salah."); }
+                } catch (err) {
+                    console.error(err);
+                    alert("Gagal membaca file Excel. Pastikan format file benar.");
+                }
             };
             reader.readAsArrayBuffer(file);
         }
